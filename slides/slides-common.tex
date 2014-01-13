@@ -171,6 +171,9 @@ San Diego, USA}
 %\newcommand{\trule}[1]{\textsc{#1}}
 %\newcommand{\irule}[3]
 %{\inferrule{ #2 }{ #3 }{\ \trule{#1}}}
+\newenvironment{subsecframe}[1]{\begin{subsection}{#1}\begin{frame}\frametitle{#1}}%
+    {\end{frame}\end{subsection}}
+
 
 \begin{document}
 
@@ -250,7 +253,105 @@ San Diego, USA}
 \frame<beamer>{\frametitle{\Coq 8.5}
 \tableofcontents[sectionstyle=show/show,subsectionstyle=show/show/show]}
 
+\section{Up and coming}
+\begin{subsecframe}{Native compilation - M. Dénès}
+\begin{itemize}
+\item NbE style (?)
+\item \Coq $"->"^{\texttt{nativecomp}}$ \textsc{ML} $"->"^{\texttt{ocamlopt}}$ \textsc{ASM}
+\item Faster than \texttt{vm\_compute}
+\end{itemize}
 
+  \begin{itemize}
+  \item[+] \emph{Optional}
+  \item[++/--] \emph{Faster at runtime, compilation is slow}
+  \end{itemize}
+\end{subsecframe}
+
+\begin{subsecframe}{Incremental development - E. Tassi}
+  \begin{itemize}
+  \item \texttt{git} model
+  \item Granularity: opaque lemmas
+  \item \texttt{.vi} interfaces: cross-file compilation
+  \item CoqIDE only (emacs interface hard to implement)
+  \end{itemize}
+
+  \begin{itemize}
+  \item[-/++] \emph{Not optional, backwards-compatible}
+  \item[+++] \emph{Faster interaction and compilation}
+  \end{itemize}
+\end{subsecframe}
+
+\begin{subsecframe}{Universe polymorphism - M. Sozeau}
+% Def interactive
+  \begin{itemize}
+  \item \emph{Checked} universes.
+  \item Global definitions or local with prenex, ``bounded''
+    quantification. \emph{Conservativity proof}
+  \item \emph{Elaboration} from typical ambiguity + implicit
+    generalization.
+  \item Checks \texttt{HoTT/Coq}, B. Barras and T. Coquand's semi-simplicial
+    model and another (1-)groupoid model.
+    \pause
+  \item Better error messaging, unification sensitive to universes.
+  \item All definitions and inductives can be polymorphic now.
+  \end{itemize}
+
+  \begin{itemize}
+  \item[=/++] \emph{Optional except for checked
+      universes, impacts the ML hacker only}. Backwards-compatibility layer.
+  \item[=+/+] \emph{Comparable or better performance, more expressive}
+  \end{itemize}
+  
+\end{subsecframe}
+
+\begin{subsecframe}{Fast record projections - M. Sozeau}
+  \begin{itemize}
+  \item Economic representation
+  \item Fast reduction
+  \item No more stupid unfoldings
+  \end{itemize}
+  
+  \begin{itemize}
+  \item[+/+--] \emph{Optional, backwards-compatibility layer,
+      small source-level incompatibilities}.
+  \item[${+}^{ω}$] \emph{Exponentially better performance}
+  \end{itemize}
+  % * Graphe de perfs
+\end{subsecframe}
+
+\begin{subsecframe}{New proof engine - A. Spiwack}
+  % * new internal proof engine (perfs)
+  % - eauto backtrack with ; true proof search
+  % "all:", tactical "+", "once", a native "refine"
+
+  \begin{itemize}
+  \item Existential variables + \texttt{LogicT}
+  \item Proof-search semantics (\texttt{;}, \texttt{+}, $\ldots$)
+  \item Cleaner code: abstract monadic interface
+  \item Native \texttt{refine}, dependent goals, goal manipulation
+  \end{itemize}
+  
+  \begin{itemize}
+  \item[-/++] \emph{Not optional, backwards-compatibility layer}
+  \item[--] \emph{0-15\% time overhead (still invesigating, \textsc{OCaml} issue likely)}
+  \end{itemize}
+
+\end{subsecframe}
+\begin{subsecframe}{New coqdoc - Y. Régis-Gianas}
+  \begin{itemize}
+  \item Based on the AST and \alert{\emph{not}} lexing anymore
+  \item All semantic information available
+  \item Plugable interface
+  \end{itemize}
+
+  \begin{itemize}
+  \item[+] \emph{Not optional but legacy \texttt{coqdoc} code included}
+  \item[=] \emph{Same performance}
+  \end{itemize}
+  
+  % \vfill
+  % \begin{center}\alert{{\Huge Demo}}\end{center}
+\end{subsecframe}
 \end{document}
 
 %%% Local Variables: 
