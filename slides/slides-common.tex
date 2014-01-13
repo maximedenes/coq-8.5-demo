@@ -42,11 +42,11 @@
 January 21st 2014\\
 San Diego, USA}
 \def\theeventabbr{}
-\def\theauthorabbr{M. Dénès \& M. Sozeau}
+\def\theauthorabbr{\name{M. Dénès} \& \name{M. Sozeau}}
 \usepackage{prelude-beamer}
 
 \author{M. Dénès, \myname{}}
-\def\theauthor{M. Dénès$^{\dagger}$ \& M. Sozeau$^{*}$}
+\def\theauthor{\name{M. Dénès}$^{\dagger}$ \& \name{M. Sozeau}$^{*}$}
 \def\PI{\name{PI}}
 \def\shaded#1{{\color{black!50}#1}}
  
@@ -254,7 +254,7 @@ San Diego, USA}
 \tableofcontents[sectionstyle=show/show,subsectionstyle=show/show/show]}
 
 \section{Up and coming}
-\begin{subsecframe}{Native compilation - M. Dénès}
+\begin{subsecframe}{Native compilation -- \name{M. Dénès}}
 \begin{itemize}
 \item NbE style (?)
 \item \Coq $"->"^{\texttt{nativecomp}}$ \textsc{ML} $"->"^{\texttt{ocamlopt}}$ \textsc{ASM}
@@ -267,7 +267,7 @@ San Diego, USA}
   \end{itemize}
 \end{subsecframe}
 
-\begin{subsecframe}{Incremental development - E. Tassi}
+\begin{subsecframe}{Incremental development -- \name{E. Tassi}}
   \begin{itemize}
   \item \texttt{git} model
   \item Granularity: opaque lemmas
@@ -281,11 +281,11 @@ San Diego, USA}
   \end{itemize}
 \end{subsecframe}
 
-\begin{subsecframe}{Universe polymorphism - M. Sozeau}
+\begin{subsecframe}{Universe polymorphism -- \name{M. Sozeau}}
 % Def interactive
   \begin{itemize}
   \item \emph{Checked} universes.
-  \item Global definitions or local with prenex, ``bounded''
+  \item Global definitions (and inductives) or local with prenex, ``bounded''
     quantification. \emph{Conservativity proof}
   \item \emph{Elaboration} from typical ambiguity + implicit
     generalization.
@@ -293,7 +293,7 @@ San Diego, USA}
     model and another (1-)groupoid model.
     \pause
   \item Better error messaging, unification sensitive to universes.
-  \item All definitions and inductives can be polymorphic now.
+  \item Generalized rewriting in \alert{\texttt{Type}}
   \end{itemize}
 
   \begin{itemize}
@@ -304,7 +304,7 @@ San Diego, USA}
   
 \end{subsecframe}
 
-\begin{subsecframe}{Fast record projections - M. Sozeau}
+\begin{subsecframe}{Fast record projections -- \name{M. Sozeau}}
   \begin{itemize}
   \item Economic representation
   \item Fast reduction
@@ -316,10 +316,13 @@ San Diego, USA}
       small source-level incompatibilities}.
   \item[${+}^{ω}$] \emph{Exponentially better performance}
   \end{itemize}
+
+  \TODO{MS: Graph}
+
   % * Graphe de perfs
 \end{subsecframe}
 
-\begin{subsecframe}{New proof engine - A. Spiwack}
+\begin{subsecframe}{New proof engine -- \name{A. Spiwack}}
   % * new internal proof engine (perfs)
   % - eauto backtrack with ; true proof search
   % "all:", tactical "+", "once", a native "refine"
@@ -332,12 +335,12 @@ San Diego, USA}
   \end{itemize}
   
   \begin{itemize}
-  \item[-/++] \emph{Not optional, backwards-compatibility layer}
+  \item[--/++] \emph{Not optional, backwards-compatibility layer}
   \item[--] \emph{0-15\% time overhead (still invesigating, \textsc{OCaml} issue likely)}
   \end{itemize}
 
 \end{subsecframe}
-\begin{subsecframe}{New coqdoc - Y. Régis-Gianas}
+\begin{subsecframe}{New coqdoc -- \name{Y. Régis-Gianas}}
   \begin{itemize}
   \item Based on the AST and \alert{\emph{not}} lexing anymore
   \item All semantic information available
@@ -351,6 +354,113 @@ San Diego, USA}
   
   % \vfill
   % \begin{center}\alert{{\Huge Demo}}\end{center}
+\end{subsecframe}
+
+\begin{subsecframe}{Misc -- \Coq dev team \& contributors}
+  \begin{itemize}
+  \item Interfaces, documentation, and \textsc{OCaml} best practices
+    (\name{P.M. Pédrot}, $\ldots$)
+  \item Module system simplifications (\name{P. Letouzey})
+  \item Generalized intro patterns (\name{H. Herbelin, P. Letouzey})
+  \item Better(?) guard condition (\name{P. Boutillier, H. Herbelin})
+  \item Rewriting with strategies (\name{M. Sozeau})
+  \end{itemize}
+
+\end{subsecframe}
+
+\begin{subsecframe}{The inconsistency}
+  \begin{itemize}
+  \item Due to a (very) extensional axiom, related to \emph{equality} on
+    types.
+  \item A good fix is known, but breaks the stdlib's use of the smart
+    guard condition (ha ha). All definitions can be adapted. Work by
+    \name{B. Barras, C. Paulin, M. Dénès, P. Boutilier}, $\ldots$
+  \item[=] Happens in \name{Agda} too!
+  \item Argues for less syntax and more logic.
+  \end{itemize}
+\end{subsecframe}
+
+\begin{subsecframe}{Planning}
+  \begin{itemize}
+  \item February 2014: 8.5-α release
+  \item April 2014: 8.5-β release and opening of new branch
+    (only bug fixes in trunk between α and β)
+  \item August 2014: final release
+  \end{itemize}
+\end{subsecframe}
+
+\begin{subsecframe}{\texttt{opam} -- \name{T. Braibant}}
+  
+  \begin{itemize}
+  \item \name{coq, HoTT/Coq, Coq+ssreflect}, any version, git included
+  \item Some user contribs: \name{Containers, Coccinelle, Ergo, \dots}
+  \item Submit a pull request! Try! Test!
+  \end{itemize}
+
+  \TODO{TB: USB key?}
+\end{subsecframe}
+
+
+\section{The close future}
+\frame<beamer>{\frametitle{The close future}
+\tableofcontents[sectionstyle=show/show,subsectionstyle=show/show/show]}
+
+\begin{subsecframe}{Performance}
+
+  \begin{itemize}
+  \item Caching of typechecked terms (\name{E. Tassi, M. Sozeau})
+  \item Generalized hashconsing (\name{T. Braibant, M. Sozeau,
+      P. M. Pédrot, $\ldots$})
+  \end{itemize}
+  
+\end{subsecframe}
+
+\begin{subsecframe}{CoqMT -- \name{P.Y. Strub}}
+  \begin{itemize}
+  \item Waiting for feedback
+  \item Integrated as an optional feature
+  \end{itemize}
+\end{subsecframe}  
+
+\section{The distant future}
+\frame<beamer>{\frametitle{The distant future}
+\tableofcontents[sectionstyle=show/show,subsectionstyle=show/show/show]}
+
+\begin{subsecframe}{HoTT or OTT?}
+  HoTT ideas, math oriented:
+  \begin{itemize}
+  \item HITs (prototype by \name{B. Barras})
+  \item Resizing of universes
+  \item \alert{\emph{Definitionally}}: βδ, η?, ι? 
+  \item \alert{\emph{Propositionally}}: proof-irrelevance, functional extensionality,
+    isomorphic types are equal (from an axiom).
+  \end{itemize}
+  
+  OTT/Epigram ideas, CS oriented:
+  \begin{itemize}
+  \item Levitation of inductive types
+  \item Clear $\Prop$/$\Set$ separation
+  \item \alert{\emph{Definitionally}}: βδηι, proof-irrelevance, functional
+    extensionality.
+  \item \alert{\emph{Propositionally}}: defined, heterogeneous on
+    values, structural on types ($\neq$ iso). 
+    With coercion and coherence operators.
+  \end{itemize}
+
+  Ideally, we should mix the two\dots
+\end{subsecframe}
+
+\begin{subsecframe}{\Coq as a programming language}
+
+  Usability, effiency woes:
+  \begin{itemize}
+  \item I/O, FFI (\TODO{MD: Demo Hello world! in Coq})
+  \item A sliding scale for efficiency/safety in the kernl (idea:
+    tainting features)
+  \item Definitional proof-irrelevance based on bracket types (useful
+    for DTP and recursion encodings)
+  \item Type-based termination (sized-types, \name{J. L. Sachini})
+  \end{itemize}
 \end{subsecframe}
 \end{document}
 
