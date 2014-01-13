@@ -1,0 +1,977 @@
+%; whizzy-master slides.tex
+%; whizzy frame -pdf ./skimopen 
+
+\usepackage{xspace} % To get the right spacings in front of : and so on
+\usepackage[english]{babel}
+\usepackage{subfigure}
+\usepackage{bussproofs}
+\usepackage{pgf}
+\usepackage{colortbl}
+\usepackage{xcolor}
+\usepackage{abbrevs}
+\usepackage[color]{coqdoc}
+\def\coqlibrary#1#2{}
+
+\usepackage{hyperref}
+\usepackage{coq}
+\usepackage{code}
+\usepackage{codecolor}
+\usepackage{cond}
+\usepackage{me}
+\usepackage{tikz}
+\usetikzlibrary{shapes}
+\usepackage{pifont}
+\usepackage{proof}
+\usepackage{utf}
+\usepackage{natbib}
+\usepackage[OT1]{fontenc}
+\usepackage{alltt}
+\usepackage{amsthm}
+
+
+\input{coqmacros}
+\input{univmacros}
+
+\def\vec#1{\overrightarrow{#1}}
+\def\thetitle{Universe Polymorphism: Subtyping and Unification}
+\def\thetextitleabbr{\thetitle}
+\def\thetextitle{\thetextitleabbr}
+\def\thesubject{Theoretical Computer Science}
+\def\thekeywords{Coq, Universes}
+\def\theevent{TYPEX Days\\
+December 17th 2013\\
+Paris}
+\def\theeventabbr{}
+\def\theauthorabbr{M. Sozeau}
+\usepackage{prelude-beamer}
+
+\author[\myabbrname{}]{{\sc \myname{}}}
+\def\PI{\name{PI}}
+\def\shaded#1{{\color{black!50}#1}}
+ 
+\def\seq{\fCenter}
+
+\def\lang{en}
+\input{mathenv}
+\setboolean{displayLabels}{true}
+
+\pgfdeclareimage[height=1.4cm]{inria-logo}{inria-logo}
+
+\pgfdeclareimage[height=1.4cm]{coq-biglogo}{barron-logo-pdf}
+\pgfdeclareimage[height=0.4cm]{coq-smalllogo}{barron-logo}
+\pgfdeclareimage[height=1cm,interpolate=true]{coq-logo}{barron-logo-pdf}
+
+\pgfdeclareimage[height=7cm]{coq-share}{coq-share}
+
+\def\imgheight{7.5cm}
+
+\def\typea{\vdash}
+\def\suba{\rightslice}
+\def\indent{\coqdocindent}
+\def\var{\coqdocvar}
+
+\def\coqdocid#1{\coqdocvar{#1}}
+
+%\renewcommand{\Type}[1]{\kw{Type}_{#1}}
+
+\newcommand{\elt}[4]{\ensuremath{\constr{exist}_{#1,#2}~#3~#4}}
+\newcommand{\eltlight}[2]{\ensuremath{\constr{exist}~#1~#2}}
+\def\class{\kw{class}~}
+\def\instance{\kw{instance}~}
+\def\tclass#1{\coqdocind{#1}}
+\def\where{\kw{where}~}
+\def\module#1{\texttt{#1}}
+
+\def\vector#1{\ind{vector}~#1}
+\def\vnil{\constr{vnil}}
+\def\vcons{\constr{vcons}}
+
+\renewcommand{\bar}[1]{{\overline{#1}}}
+
+\setlength{\coqdocbaseindent}{0em}
+
+\renewcommand{\eqbr}{`=_{\beta}}
+
+\def\coqlibrary#1#2#3{}
+
+% Tutorial
+
+\newboolean{darkfond}
+\setboolean{darkfond}{false}
+%\setboolean{darkfond}{true}
+
+\definecolor{metavarcolor}{rgb}{0.5,0.0,1.0}
+\definecolor{darkgreen}{rgb}{0.1,0.7,0.1}
+\definecolor{answercolor}{rgb}{1.0,0.0,0.0}
+\definecolor{normalcolor}{rgb}{0.0,0.0,0.0}
+\definecolor{exbluecolor}{rgb}{0.1,0.1,0.9}
+\definecolor{dontlookcolor}{rgb}{0.5,0.5,0.5}
+\definecolor{termcolor}{rgb}{0.0,0.1,0.9}
+\definecolor{lookcolor}{rgb}{0.8,0.2,0.0}
+\definecolor{prooftermcolor}{rgb}{0.3,0.1,1.0}
+\definecolor{typecolor}{rgb}{1.0,0.6,0.0}
+\definecolor{taccolor}{rgb}{0.70,0.10,0.0}
+\definecolor{pink}{rgb}{0.8,0.6,0.6}
+\definecolor{darkmagenta}{rgb}{0.4,0.0,0.6}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+
+
+\newcommand{\corkscrew}{\boldsymbol{\large \vdash}}
+%\newcommand{\disj}{\mbox{$\backslash/$}}
+%\newcommand{\conj}{\mbox{$/\backslash$}}
+\newcommand{\juge}[3]{\mbox{$#1 \boldsymbol{\vdash} #2 : \color{red}#3 $}}
+%\newcommand{\juge}[4]{\mbox{$#1,#2 \corkscrew #3 \boldsymbol{:} #4 $}}
+%\newcommand{\smalljuge}[3]{\mbox{$#1 \corkscrew #2 \boldsymbol{:} #3 $}}
+%\newcommand{\goal}[3]{\mbox{$#1,#2 \corkscrew^{\!\!\!?} #3  $}}
+%\newcommand{\sgoal}[2]{\mbox{$#1\corkscrew^{\!\!\!\!?} #2 $}}
+%\newcommand{\reduc}[5]{\mbox{$#1,#2 \corkscrew #3 \rhd_{#4}#5 $}}
+%\newcommand{\convert}[5]{\mbox{$#1,#2 \corkscrew #3 =_{#4}#5 $}}
+%\newcommand{\convorder}[5]{\mbox{$#1,#2 \corkscrew #3\leq _{#4}#5 $}}
+%\newcommand{\wouff}[2]{\mbox{$\emph{WF}(#1)[#2]$}}
+
+
+\newcommand{\mthese}{\underset{M}{\vdash}}
+%\newcommand{\jthese}{\mathop{\vdash}_J}
+%\newcommand{\jthese}{\stackrel[J]{}{\vdash}}
+\newcommand{\jthese}{\underset{\tiny J}{\vdash}}
+%\newcommand{\jthese}{\boldsymbol{\vdash}_{\tiny{ \!\!J}}}
+
+\newcommand{\jsequent}[2]{\mbox{$#1\;\jthese\; #2 $}}
+\newcommand{\msequent}[2]{\mbox{$#1\;\mthese\; #2 $}}
+
+
+
+%\newcommand{\type}{\boldsymbol{:}}
+
+
+\newcommand{\answ}{\color{answercolor}}
+\newcommand{\coquser}{\color{normalcolor}}
+\newcommand{\Ord}{\mbox{$\mathbb{O}$}}
+\newcommand{\ords}{\mbox{\(\mathbb{O}\)}}
+\newcommand{\nl}{\mbox{$\underset{\scriptstyle NL}{\longrightarrow}$}}
+\newcommand{\base}[1]{{\color{lookcolor}#1}}
+\newcommand{\om}{\mbox{$\omega$}}
+
+%_{\alpha\beta\delta\iota}
+\def\order{\mathcal{O}}
+\def\tchecking#1#2#3{\ensuremath{#1 \vdash #2 : #3}}
+\def\tconv#1#2#3#4{\ensuremath{#1 \vdash #2 = #3 "~>"
+    #4}}
+\def\tcumul#1#2#3#4{\ensuremath{#1 \vdash #2 \leq #3 "~>"
+    #4}}
+
+\def\tinfer#1#2#3#4#5#6{\ensuremath{#1; #2 \vdash #3 \Uparrow\ 
+    "~>" #4 \vdash #5 : #6}}
+
+\def\tcheck#1#2#3#4#5#6#7{\ensuremath{#1; #2 \vdash #3 \Downarrow #4
+    "~>" #5 \vdash #6 : #7}}
+
+\usepackage{mathpartir}
+%\newcommand{\trule}[1]{\textsc{#1}}
+%\newcommand{\irule}[3]
+%{\inferrule{ #2 }{ #3 }{\ \trule{#1}}}
+
+\begin{document}
+
+
+\setbeamertemplate{background canvas}[vertical shading][top=rouge1,middle=rouge1,bottom=rouge1]
+\setbeamertemplate{footline}{\hspace{5em} \textcolor{white} {\null \hfill}\hspace{2em}\null \vspace*{3pt}}
+
+\begin{frame}
+
+\begin{textblock*}{40mm}[0,0](10mm,0mm)
+ \includegraphics[width=6cm]{INRIA_CHERCHEURS_UK_RVB}
+  \end{textblock*}
+
+\begin{textblock*}{8cm}(13mm,50mm)
+{\textcolor{white} {
+{\huge \thetitle}\\[2mm]
+{\theauthor}}}
+\end{textblock*}
+
+
+   \begin{textblock*}{40mm}[0,0](10mm,76mm)
+  \begin{picture}(5,80)
+\put(0,23){\includegraphics[width=4cm,height=1.5cm]{logobasrougeV1}}
+\put(20,50){\tiny \textcolor{rouge2}{Project Team $πr^2$}}
+\put(20,40){\tiny \textcolor{rouge2}{INRIA \& PPS, Paris 7}}
+\end{picture}
+\end{textblock*}
+
+
+\begin{textblock*}{7cm}(55mm,76mm)
+{\textcolor{white}{{\theevent}}}
+\end{textblock*}
+
+\vspace*{-4pt}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setbeamertemplate{background canvas}[vertical shading][top=rouge1,bottom=rouge1,middle=rouge1]
+\setbeamercolor{toto}{fg=blanc,bg=rouge1}
+
+\setbeamertemplate{footline}
+{
+\begin{beamercolorbox}[wd=1\paperwidth,ht=15.5pt]{toto}
+\raisebox{1ex}
+{\includegraphics[width=25mm]{logobastrans}}
+  \raisebox{2.5ex}
+  {\theauthor{} - \thetitle}\hfill 
+  \raisebox{2.5ex}
+  {\insertframenumber \hspace{5mm} \null }
+\end{beamercolorbox}}
+
+\setbeamertemplate{background canvas}[vertical shading][top=white,middle=white,bottom=white]
+
+\def\bulletfail{\alert{\ding{54}}}
+\def\bulletcheck{\ding{52}}
+
+%\setbeamercolor{background}{fg=red,bg=white,text=blue}
+
+%\setbeamercolor{subsection in toc shaded}{fg=gray,bg=white,text=blue}
+\setbeamercolor{section in toc}{fg=black,bg=white,text=blue}
+\setbeamercolor{subsection in toc}{fg=black,bg=white,text=blue}
+%\setbeamertemplate{table of contents shaded}[default]
+%\setbeamertemplate{subsection in toc shaded}{\textcolor{gray}}
+
+\setbeamertemplate{section in toc shaded}
+{\begin{colormixin}{20!white}{\usebeamertemplate{section in toc}}\end{colormixin}\unskip}
+
+\setbeamertemplate{subsection in toc shaded}
+{\begin{colormixin}{20!white}{\usebeamertemplate{subsection in toc}}\end{colormixin}\unskip}
+
+\setbeamertemplate{subsubsection in toc shaded}
+{\begin{colormixin}{20!white}{\usebeamertemplate{subsubsection in toc}}\end{colormixin}\unskip}
+
+\def\max{\mathsf{max}}
+
+\section{Introduction}
+
+\begin{frame}
+  \frametitle{What are universes?}
+  
+  Universes are the types of \emph{types}, e.g:
+  \begin{itemize}
+  \item $\ind{nat}, \ind{bool} : \Type{0}$
+  \item $\Type{0} : \Type{1}$
+  \item $\ind{list} : \Type{0} "->" \Type{0}$
+  \item $∀ α : \Type{0}, \ind{list}~α : \Type{1}$
+  \item $∀ n : \ind{nat}, \{ n = 0 \} + \{ n \neq 0 \} : \Type{0}$
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{How are they organised?}
+
+  A \emph{hierarchy} of universes $\Type{0} < \Type{1} < \ldots \Type{n}$ used to avoid the $\Type{} : \Type{}$ paradox (system $U^{-}$,
+  first version of \name{Martin-Löf} Type Theory (MLTT)).
+
+  \begin{itemize}
+  \item Replicates \name{Russell}'s paradox of 
+    $\{ x `| x \notin x \}$, the set of all sets etc....
+  \item You can think of
+    \Type{0} as sets, \Type{1} as classes etc...
+  \end{itemize}
+
+\end{frame}
+\begin{frame}
+  \frametitle{\Coq's theory}
+
+  We call the sort of $t$ the type of the type of $t$, it is necessarily
+  a $\Type{i}$ (see e.g. \textsc{Type-prod}).
+  
+  \begin{figure}
+    \begin{mathpar}
+      \irule{Type-intro}{\vdash Γ \quad (i \in \mathbb{N})}{Γ \vdash \Type{i} : \Type{i+1}}
+
+      \irule{Type-prod}{Γ \vdash A : \Type{i}\\Γ, x : A \vdash B : \Type{j}}
+      {Γ \vdash Π x : A. B : \Type{\max(i,j)}}
+
+    \end{mathpar}
+  \end{figure}
+
+  For our purposes, think of Coq's type theory as a stratified,
+  predicative System F + primitive inductive/algebraic datatypes.
+  The dependent quantification on terms is not relevant here. 
+\end{frame}
+
+\begin{frame}
+  \frametitle{Typical ambiguity}
+
+  Working with explicit universe indices is cumbersome, annotations
+  pervade definitions and proofs.
+
+  \begin{center}
+    $"=>"$ Allow \emph{typical ambiguity} (first used by Russell in Principia).
+  \end{center}
+  
+  Idea: write $\Type{}$ to mean any type that works (keeps the system
+  consistent).
+  
+  \begin{itemize}
+  \item On paper: let the reader infer levels for universes and check
+    consistency. 
+  \item On computer: let the computer infer levels and check consistency
+    in the background.
+  \end{itemize}
+
+  In practice, translation from a source language with anonymous $\Type{}$s
+  to a core theory with $\Type{i}$s only.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Floating universes}
+
+  But in general many $i$'s can work!
+
+  \[\kw{Definition}~\cst{id}~(A : \Type{})~(a : A) := a.\]
+
+  \[\vdash \cst{id} : \Pi (A : \Type{0}),~A \rightarrow A : \Type{1} \]
+  \begin{center}or\end{center}
+  \[\vdash \cst{id} : \Pi (A : \Type{1}),~A \rightarrow A : \Type{2} \]
+
+  \begin{center}or \ldots\end{center}
+  
+  \begin{center}
+    $"=>"$ Allow \emph{universe variables}.
+  \end{center}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Floating universes and constraints}
+
+  Consistency is now decided by giving an assignation of natural numbers to universe variables, 
+  satisfying \emph{constraints}. New judgment $\vdash_{float}$
+
+  \begin{figure}
+    \begin{mathpar}
+      \irule{Type-intro}{\vdash_{float} Γ \quad (i,j \in \mathbb{L})}{Γ \vdash_{float}
+        \Type{i} : \Type{j} "~>" i < j}
+
+      \irule{Type-prod}{Γ \vdash_{float} A : \Type{i}\\Γ, x : A \vdash B : \Type{j}}
+      {Γ \vdash_{float} Π x : A. B : \Type{k} "~>" \max(i,j) \leq k}
+    \end{mathpar}
+  \end{figure}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Floating universes and constraints \textrm{II}}
+
+  \begin{proposition}[Correctness]
+    \textcolor{white}{If $Γ \vdash_{float} t : T "~>" Θ$ and $Θ$ is satisfiable (with
+    assignemnt $σ$) then $Γ[σ] \vdash t[σ] : T[σ]$.}
+  \end{proposition}  
+
+  Constraints $"=>"$ graph structure based on union-find. $l < l'$
+  is an arc, consistency is cycle-freeness, easy to check incrementaly.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Without polymorphism}
+
+  Floating levels give a false sense of polymorphism:
+
+  \[\kw{Definition}~\cst{id}~(A : \Type{})~(a : A) := a\]
+
+  \[\vdash \cst{id} : \Pi (A : \Type{l}),~A \rightarrow A :
+  \Type{\max(l+1,l)} `= \Type{l+1} \]
+
+  $"=>"$ $l$ is \emph{not} quantified at the definition level here, it is \emph{global}: 
+
+  \[\not\vdash \cst{id}~(\Pi (A : \Type{l}),~A \rightarrow A)~\cst{id} : (\Pi (A :
+  \Type{l}),~A \rightarrow A)\]
+
+  Because $l+1 \not\le l$.
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{With polymorphism}
+
+  Real, bounded polymorphism:
+
+  \[\kw{Polymorphic}~\kw{Definition}~\cst{id}~(A : \Type{})~(a : A) := a\]
+
+  \[\cst{id} : \forall~l, \Pi (A : \Type{l}),~A \rightarrow A\]
+
+  $"=>"$ $l$ is quantified at the definition level now, but second-class, we need
+  \emph{instantiation}:
+
+  \[\vdash_{poly} \cstu{id}{k}~(\Pi (A : \Type{l}),~A \rightarrow A)~\cstu{id}{l} : (\Pi (A :
+  \Type{l}),~A \rightarrow A) "~>" k < l\]
+  
+\end{frame}
+
+\section{The current setup}
+\frame<beamer>{\frametitle{\thetitle}\tableofcontents[sectionstyle=show/show,subsectionstyle=show/show/show]}
+
+
+\subsection{Definitions}
+
+\begin{frame}
+  \frametitle{Kernel Type Inference}
+
+  Implicit universes with cumulativity, à la Russell.
+  
+  \emph{In the kernel}, build up a set of universe constraints $Θ$.
+
+  \begin{figure}
+  \begin{mathpar}
+
+    \irule{Prod}
+    {\tchecking{\Gamma; Θ}{T}{\Type{i}} "~>" Θ_1 \\
+     \tchecking{\Gamma, x : T; Θ_1}{U}{\Type{j}} "~>" Θ_2}
+    {\tchecking{Γ; Θ}{Π x : T. U}{\Type{\max(i, j)}} "~>" Θ_2}
+
+    \irule{Conv}
+    {\tchecking{\Gamma; Θ}{t}{U} "~>" Θ_1 \\
+     \tchecking{\Gamma; Θ_1}{V}{s} "~>" Θ_2 \\
+     \tcumul{Θ_2}{U}{V}{Θ_3}}
+    {\tchecking{Γ; Θ}{t}{V} "~>" Θ_3}
+  \end{mathpar}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kernel Conversion}
+
+  \begin{figure}
+    \begin{mathpar}
+  \irule{Cumul-Sort}
+    {}
+    {\tcumul{Θ}{\Type{i}}{\Type{j}}{Θ \cup i \leq j}}
+
+    \irule{Cumul-Prod}
+    {\tconv{Θ}{U}{U'}{Θ_1} \\
+      \tcumul{Θ_1}{T}{T'}{Θ_2}}
+    {\tcumul{Θ}{Π x : U. T}{Π x : U'. T'}{Θ_2}}
+
+  \end{mathpar}
+\end{figure}  
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Some definitions}
+
+  Algebraic universes and constraints:
+
+  \[\begin{array}{llcl}
+    \text{levels} & i, j, le, lt & \in & \mathbb{N} \cup \{ \Prop, \Set \} \\
+    \text{universes} & u, v & ::= & i `| \max(\vec{le}, \vec{lt}) \\
+    \text{successor} & i+1 & ::= & \max([], i) \\
+    \text{order} & \order & ::= & =\ `|\ <\ `|\ \le\ \\
+
+    \text{atomic constraint} & c & ::= & i\ \order\ j \\
+    \text{constraints} & Θ & ::= & ε `| c \cup Θ
+  \end{array}\]
+  
+  \pause
+  Only handles constraints of the form $u\ \order\ j$ by
+  translation to atomic constraints:
+
+  \[\max(i\ j, k) \leq l "<=>" i \leq l \cup j \leq l \cup k < l\]
+
+  Invariant on typing ensures this is the shape of infered constraints
+  (Herbelin, TYPES).
+
+\end{frame}
+\subsection{Issues}
+\begin{frame}
+  \frametitle{Issues}
+
+  \begin{itemize}
+  \item Constraints are regenerated at each type checking 
+  \item Forces the global, unorderly generation of universe variables.
+    Any term going out of the kernel must get refreshed universe
+    variables because $\max(i,j)$ shouldn't be fed back to it.
+    
+
+    % During typing, $\max$ shouldn't appear on the left, i.e.: $Γ
+    % \not\vdash \Type{\max(i,j)} : ?$. But it might appear in a type
+    % inferred by the kernel, e.g. as a result of typing $Π x : T. U$.
+    % So, when taking a term back from the kernel, we must refresh its
+    % variables, changing any $\Type{max(i,j)}$ to $\Type{k}$ for some
+    % fresh $k$.
+
+  \item To implement universe polymorphism, must hack directly inside the kernel.
+    Done for inductive types for now.
+  \end{itemize}
+\end{frame}  
+
+\section{The new setup}
+\frame<beamer>{\frametitle{Universes in \Coq}\tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/show/shaded]}
+
+\begin{frame}
+  \frametitle{Constraint checking}
+  
+  \[\begin{array}{llcl}
+    \text{universe context} & Ψ & ::= & \vec{i} "|=" Θ
+  \end{array}\]
+
+  Constraints are generated once at \alert{refinement} time (outside the
+  kernel):
+  
+  Inference: {$\tinfer{Γ}{Ψ}{t}{Ψ'}{t'}{T}$}
+  
+  Checking: {$\tcheck{Γ}{Ψ}{t}{T}{Ψ'}{t'}{T}$}
+
+  \pause
+  \begin{figure}
+  \begin{mathpar}
+    \irule{Check-Type}{$\tcumul{θ}{\Type{i+1}}{T}{θ'}$}
+    {$\tcheck{Γ}{us "|=" θ}{\Type{}}{T}{us, i "|=" θ'}{\Type{i}}{T}$}
+
+    \irule{Infer-Cst}
+    {(\cst{id} : T) \in Σ}
+    {\tinfer{Γ}{Ψ}{\cst{id}}{Ψ}{\cst{id}}{T}}
+  \end{mathpar}
+
+  \pause
+  \begin{itemize}
+  \item The kernel just checks constraints: $Γ; Ψ \vdash t : T$
+  \item All universes and constraints that appear in the derivation
+    (including conversions) must be in $Ψ$.
+  \end{itemize}
+
+\end{figure}
+
+\end{frame}  
+
+
+\subsection{Universe polymorphic definitions}
+\begin{frame}
+  \frametitle{Universe Polymorphic definitions}
+  
+  Now we can introduce universe polymorphism. 
+
+  Suppose a top-level definition $\cst{id} := t : T$.
+  \pause
+  \begin{enumerate}
+  \item {$\tinfer{Γ}{}{T}{Ψ}{T'}{s}$}
+    \pause
+  \item {$\tcheck{Γ}{Ψ}{t}{T'}{i "|=" θ}{t}{T'}$}
+    \pause
+  \item Add $\cst{id} : ∀\ i "|=" θ, T' := t$ to the environment.
+  \end{enumerate}
+
+  \vspace{2em}
+
+  $"=>"$ Guiding principle: constants are \emph{transparent},
+  indistinguishable from their bodies.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Universe Polymorphic definitions}
+
+  To use $\cst{id}$, we change elaboration of constants to:
+  \begin{mathpar}
+    \irule{Infer-Cst}
+    {(\cst{id} : ∀\ i "|=" θ, T) \in Σ \\
+      \vec{i'} : \vec{i} \notin \vec{u}}
+    {\tinfer{Γ}{\vec{u} "|=" Θ}{\cst{id}}{\vec{u}, \vec{i'} "|="
+        Θ \cup θ[\vec{i'}/\vec{i}]}{\cst{id}_{\vec{i'}}}{T[\vec{i'}/\vec{i}]}}
+  \end{mathpar}
+
+   $"=>"$ Constants now carry their universe substitution/instance.
+
+   $"=>"$ Inductives and constructors treated the same way.
+   
+\end{frame}
+
+\begin{frame}
+  \frametitle{Universe Polymorphic definitions: conversion}
+
+  \begin{figure}
+    \begin{mathpar}
+      \irule{R-δ-l}
+      {\cstu{c}{\vec{i}} "->"_\delta t \\
+        \tgenconv{R}{ψ}{t~\vec{a}}{u}}
+      {\tgenconv{R}{ψ}{\cstu{c}{\vec{i}}~\vec{a}}{u}}
+      
+      \irule{R-δ-r}
+      {\cstu{c}{\vec{i}} "->"_\delta u \\
+        \tgenconv{R}{ψ}{t}{u~\vec{a}}}
+      {\tgenconv{R}{ψ}{t}{\cstu{c}{\vec{i}}~\vec{a}}}
+    \end{mathpar}
+
+    \begin{mathpar}
+      \irule{R-FO}
+      {\tgenconv{=}{ψ}{\vec{as}}{\vec{bs}} \\
+        \alert{\tconstreq{ψ}{\vec{u}}{\vec{v}}}}
+      {\tgenconv{R}{ψ}{\cstu{c}{\vec{u}}~\vec{as}}{\cstu{c}{\vec{v}}~\vec{bs}}}
+    \end{mathpar}
+
+  \end{figure}
+\end{frame}
+
+\subsection{The good, the bad and the ugly}
+\begin{frame}
+  \frametitle{Advantages to elaboration}
+
+  \begin{itemize}
+  \item Reduced trusted code base: checking vs inference.
+  \item Reduced polymorphism-specific code (actually
+    no, thanks to backward compatibility).
+  \item Avoid diffuse use of global gensym $"=>"$ more functional.
+  \item User-level control on generated universes and form of
+    constraints (simplification, declaration...).
+  \item Mixing polymorphic and monomorphic definitions.
+  \end{itemize}
+\end{frame}
+ 
+\begin{frame}[fragile]
+  \frametitle{Design choices}
+
+  Disadvantage (for me and some of you): unification and tactics must become universe-aware.
+
+\begin{verbatim}
+Universes.constr_of_global : 
+  global_reference -> constr in_universe_context
+\end{verbatim}
+   
+  Unification of $\cst{id}_i$ and $\cst{id}_j$:
+  Syntactic equality of $i$ and $j$? Do nothing?
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{First-order unification of universes: a first bold idea}
+
+  Due to (notoriously heuristic) first-order unification/conversion of
+  constants\ldots we could get too strict universe constraints.
+  $\kw{Definition}~U2 := \Type{i}.$
+  $\kw{Definition}~U1 : U2 := \Type{j} "~>" j < i$
+  $\kw{Definition}~U0 : U1 := \Type{k} "~>" k < j$
+  $\kw{Definition}~U02 : U2 := U0 "~>" k < i$
+
+  \[\cst{id}_j~U02~"~"~\cst{id}_i~U0 "~>" i = j\]
+  But:
+  $\cst{id}_j~U02 "->"^* (U0 "->" U0)$ and
+  $\cst{id}_i~U0 "->"^* (U0 "->" U0)$
+
+  \begin{center}
+    $"=>"$ Analyse \emph{variance} of universes to relax first-order
+    unification. Variance could help minimization too.
+  \end{center}
+
+  E.g. for $\cst{id}_i~t "~" \cst{id}_j~u$, $i$ and $j$ do not have to be
+  compared.
+  \vfill
+
+  \alert{$"=>"$} But it looks like the analysis is hard, not
+  compositional and requires full normalisation of the constant bodies.
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Pragmatic, heuristic solution}
+  
+\begin{verbatim}
+Evd.fresh_global : ?rigid:rigid -> env -> evar_map -> 
+  global_reference -> evar_map * constr
+
+type rigid = 
+  | UnivRigid
+  | UnivFlexible of bool (* can be algebraic? *)
+\end{verbatim}
+
+  \begin{itemize}
+  \item Polymorphic constants get elaborated with flexible argument
+    levels.
+  \item Typical ambiguity (e.g. \Type{}) creates \alert{rigid} variables. 
+  \item User-given levels will be rigid
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Unification with universes}
+
+  \begin{figure}
+
+  $\igenconv{R}{ψ}{t}{u}{ψ'}$: unification of $t$ and $u$ under $ψ$.
+  \begin{mathpar}
+    \irule{Elab-R-δ-left}
+    {\cstu{c}{\vec{i}} "->"_\delta t \\
+      \igenconv{R}{ψ}{t~\vec{a}}{u}{ψ'}}
+    {\igenconv{R}{ψ}{\cstu{c}{\vec{i}}~\vec{a}}{u}{ψ'}}
+    
+    \irule{Elab-R-δ-right}
+    {\cstu{c}{\vec{i}} "->"_\delta u \\
+      \igenconv{R}{ψ}{t}{u~\vec{a}}{ψ'}}
+    {\igenconv{R}{ψ}{t}{\cstu{c}{\vec{i}}~\vec{a}}{ψ'}}
+
+    \irule{Elab-R-FO}
+    {\igenconv{\alert{\textbf{=}}}{ψ}{\vec{as}}{\vec{bs}}{ψ'} \\
+      \iconstreq{ψ'}{\vec{u}}{\vec{v}}{ψ''}}
+    {\igenconv{\alert{\textbf{R}}}{ψ}{\cstu{c}{\vec{u}}~\vec{as}}{\cstu{c}{\vec{v}}~\vec{bs}}{ψ'}}
+  \end{mathpar}
+  
+  $\iconstreq{ψ}{i}{j}{ψ'}$: unification of
+  universe instances.
+  \begin{mathpar}
+    \irule{Elab-Univ-Eq}
+    {\tconstreq{ψ}{i}{j}}
+    {\iconstreq{ψ}{i}{j}{ψ}}
+    
+    \irule{Elab-Univ-Flexible}
+    {{i_{\mathsf{f}} `V j_{\mathsf{f}}} \in \vec{u_s} \\
+      {\tconsistent{ψ ∧ i = j}}}
+    {\iconstreq{(\vec{u_s} \models ψ)}{i}{j}{ψ ∧ i = j}}
+  \end{mathpar}
+\end{figure}
+\end{frame}  
+
+\begin{frame}
+  \frametitle{Design choice}
+
+  Universe instances are levels:
+  Suppose \[\cst{id} : ∀ i "|=", Π A : \Type{i}, A → A\]    
+  \[Γ = A : \Type{i}, P : \cst{fibration}_{i,j} A \vdash Σ_{i j}\ A\ P :
+  \Type{\max(i,j)}\]
+  
+  Levels only, adding constraint if an algebraic would appear:
+  \[Γ; \vec{u} "|=" θ \vdash
+  \cst{id}\ (Σ\ A\ P) \Uparrow \vec{u}, k "|=" θ\ \cup\ \max(i,j)
+  \leq k \vdash \cst{id}_{k} (Σ_{i j}\ A\ P) \ldots\]
+  \pause
+\end{frame}
+
+\subsection{Minimizing the ugly}
+\begin{frame}
+  \frametitle{Minimization}
+
+  \begin{center}That's \emph{a lot} of fresh universe variables!!
+  \end{center}
+
+  Typical example:
+  \[\tinfer{Γ}{Ψ}{\cst{id}\ \constr{true}}{Ψ \cup i "|="
+    \Set \le i}{@\cst{id}_{i}\ \ind{bool}\ \constr{true}}{\ind{bool}}\]
+
+  \pause
+  We'd want: $@\cst{id}_{\Set}\ \ind{bool}\ \ind{true} : \ind{bool}$,
+  no new universe, no additional constraint, just as general.
+
+  \pause  
+  \begin{center}
+    $"=>"$ Minimization: compute a minimal set of universe variables.
+  \end{center}
+
+  See Cardelli's greedy algorithm for $F^{\leq}$ inference, local type
+  inference (Pierce \& Turner).
+
+  \begin{itemize}
+  \item Requires no other lower constraints on $i$ ($j\ \order\ i$).
+  \item \alert{Only} applies to flexible variables. 
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Minimization, results}
+
+  Correctness proof: easy, preservation of local solutions.
+
+  \begin{center}
+    Of course this is \alert{\emph{not}} endangering the consistency of \Coq!
+  \end{center}  
+
+  \vspace{2em}
+
+  \begin{theorem}[\emph{Conservativity}]
+    \textcolor{white}{Unfolding universe 
+    polymorphic definitions gives correct typings in the original
+    system. Might just not be the most general ones if minimization did
+    anything. For inductives, each instantiation is a new copy.}
+  \end{theorem}
+\end{frame}
+
+\subsection{Dealing with Prop}
+\begin{frame}[fragile]
+  \frametitle{Dealing with \Prop}
+
+  Let $\cstu{false}{i} : \Type{i+1} \eqdef (Π A : \Type{i}, A : \Type{\max(i+1,i)})$. 
+
+  \vspace{1em}
+
+  But $\cstu{false}{\Prop} "->"^* Π A
+  : \Prop, A$, of type \Prop by impredicativity (and \Type{\Prop+1} still). 
+
+  \pause
+
+  \vspace{2em}
+
+  \textbf{Fact:} our universe polymorphism is \emph{incompatible} with the implicit use
+  of impredicativity (which has computational content according to
+  homotopy models, see hProp's in the HoTT book). The implicit $\Prop{} \le \Type{}$
+  rule also causes problems for models and syntax of
+  proof-irrelevance (Werner \textit{et al})... 
+
+  \vspace{2em}
+
+  \textbf{Ideal Solution:} Let's get the Rooster and the Syntactic
+  Bracket (Herbelin \& Spiwack).
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Dealing with \Prop \textrm{II}}
+
+  \textbf{Partial Solutions:}
+  \begin{itemize}
+  \item Allow to disable $\Prop$ completely, with \verb|-no-prop|, for
+    HoTTists.
+  \item Disallow instantiating a parameter level $i$ with $\Prop$,
+    similar to the current \name{Coq} solution. But get less precise types.
+  \item Currently, don't mind the problem, it's ok in practice and you
+    don't want to lose the benefit of:
+
+    \[\begin{array}{l}
+      \cstu{subset}{i}~(A : \Type{i})~(P : A "->"
+      \Prop) : \Type{i} \eqdef \\
+      \quad\quad (\Sigma_{i,\Prop}~A~P : \Type{\max(i,\Prop)})
+    \end{array}\]
+  \end{itemize}
+  
+
+\end{frame}
+
+\subsection{Implementation \& benchmarks}
+\begin{frame}
+  \frametitle{Benchmarks}
+
+  Implementation still in progress but:
+  \begin{itemize}
+  \item Runs the Homotopy Type Theory Coq library with full universe
+    polymophism. No noticeable slowdown. Most definitions
+    polymorphic on 6 universes at most.
+  \item A universe polymorphic formalization of weak groupoids + an
+    interpretation of CC in groupoids, takes 5 min to compile with
+    polymorphism and fast projections, impossible without those two
+    (inconsistency, exponential slowdown). 1min if deactivating
+    universes.
+  \end{itemize}
+  
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Implementation}
+
+  \begin{itemize}
+  \item Key technique: hash-consing for fast comparison of universe
+    levels, universe instances and algebraic universes. Imperfect as
+    deserialization breaks hashconsing (WIP with T. Braibant, PMP, \ldots).
+
+  \item Minimization is fast.
+  \item Currently using naive structures, i.e. the kernel side graph
+    based on union-find does not do compression and the user-side
+    (inference) substitution of universes does not use union-find.
+    Optimize last!
+
+  \item Universes have to be normalized at the end of inference now:
+    \verb|nf_evars_universes : evar_map -> constr -> constr|
+
+  \end{itemize}
+\end{frame}
+
+\section{The past \& the future}
+\frame<beamer>{\frametitle{Universes in \Coq}\tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/show/shaded]}
+
+\begin{frame}
+  \frametitle{Related work}
+  
+  \begin{itemize}
+  \item Harper and Pollack (TCS'91). Handling of definitions and typical
+    ambiguity in type synthesis.
+  \item J. Courant: Explicit Universes for CC (TPHOLs'02). 
+    User-level declarations of $u \leq i$ in contexts, no other change.
+  \item Matita (Coen et al.): checked universes, polymorphism at library
+    level.
+  \item Pierce and Turner (JFP): Local type inference (based on
+    Cardelli's greedy inference algorithm).
+  \end{itemize}
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{Nice things that become possible}
+
+  \begin{itemize}
+  \item Universe polymorphic developments: reuse definitions and lemmas
+    at different levels.
+  \item Polymorphism for universes appearing \emph{inside} structures: 
+    old discrepancy between parameters and fields.
+  \item Computational relations and rewriting:
+    long standing limitation, e.g. for MathClasses.
+    Useful for HoTT as well.
+  \item Let us \emph{declare} universes and constraints (no user syntax yet).
+  \item Resizing rules.
+  \end{itemize}
+  
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{The End}
+  \begin{center}
+    {\Huge That's all folks!}
+  \end{center}
+  
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Minimization II}
+
+  At the end of elaboration: $\vec{i} "|=" Θ \vdash t : T$.
+
+  Find a mimimal set of universes variables $\vec{i'} ⊂
+  \vec{i}$, universes $\vec{u}$, a substitution $σ : \vec{i}
+  "->" \vec{u}$ and constraints $Θ'$ s.t.
+  $\vec{i'} "|=" Θ' \cup Θσ$ and $\vec{i'} "|=" Θσ "=>" Θ'$.
+
+  \begin{itemize}
+  \item First normalize the constraints w.r.t. loops
+    ($l \leq r ∧ r \leq l$) and equalities.
+    \pause
+  \item Canonicalize $Θ$ w.r.t equalities (except globals)
+  \item Mark $i$'s that are fresh universe variables from universe
+    instances as candidates for unification + restriction for universes
+    ``on the left''.
+    \pause
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Minimization III}
+  
+  We now have $Θ$ with only inequality constraints 
+  and a set $f$ of flexible universe variables.
+  
+  \begin{itemize}
+  \item Let $i \in f$, compute its g.l.b: $\max(\vec{j}), j\ \order\ i \in Θ$.
+    If $i$ has no lower constraints it must be kept.
+  \item Generate upper constraints $\{ glb\ \order\ j `| i\ \order\ j \in Θ \}$
+  \item Set $i := glb$ except if $glb$ algebraic and $i$ has upper
+    constraints. We can share such $glb$s though.
+  \end{itemize}
+
+\end{frame}
+
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-PDF-mode: t
+%%% TeX-master: "slides"
+%%% End: 

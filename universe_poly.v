@@ -232,17 +232,32 @@ Test Universe Polymorphism.
 Polymorphic Inductive sigma (A : Type) (P : A -> Type) :=
   dpair : ∀ a : A, P a -> sigma A P.
 
-Notation " { x : A & P } " := (@sigma A (fun x : A => P)).
+Notation " { x : A & P } " := (@sigma A (fun x : A => P)) : type_scope.
+Notation " { x & P } " := (@sigma _ (fun x => P)) (at level 0, x at level 99) : type_scope.
 
-
-Polymorphic Inductive paths (t := Type) 
-            (A : t) (a : A) : A -> t :=
-  idpath : paths A a a.
+Polymorphic Inductive paths {A : Type} : A -> A -> Type :=
+  idpath : forall a, @paths A a a.
 
 Polymorphic Definition contr (A : Type) := 
-  forall x : A, { y : A | x = y }.
+  forall x : A, { y : A & paths x y }.
 
 Polymorphic Definition _Type := 
+  { A & contr A }.
+
+Polymorphic Definition _TypeBUGGED := 
   { A : Type & contr A }.
 
 Print _Type.
+
+
+(** Sigma is now polymorphic, only one exists... *)
+
+Definition subset {A : Set} (P : A → Prop) : Set := 
+  sigma A P.
+
+Definition subsetT {A : Type} (P : A → Prop) := 
+  sigma A P.
+
+Definition conj (A B : Prop) : Prop :=
+  sigma A (fun _ => B).
+
