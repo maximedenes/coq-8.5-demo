@@ -101,9 +101,11 @@ San Diego, USA}
 \definecolor{darkmagenta}{rgb}{0.4,0.0,0.6}
 \definecolor{darkblue}{rgb}{0.0,0.0,0.6}
 
-\newenvironment{subsecframe}[1]{\begin{subsection}{#1}\begin{frame}\frametitle{#1}}%
-    {\end{frame}\end{subsection}}
+%\newenvironment{subsecframe}[2][]{\begin{frame}[environment=subsecframe,#1]\frametitle{#2}\begin{subsection}{#2}}{\end{subsection}\end{frame}}
 
+\newenvironment{subsecframe}[1]{\begin{subsection}{#1}\begin{frame}\frametitle{#1}}{\end{frame}\end{subsection}}
+
+\newenvironment{subsecframefragile}[1]{\begin{frame}[fragile,environment=subsecframefragile]\frametitle{#1}\begin{subsection}{#1}}{\end{subsection}\end{frame}}
 
 \begin{document}
 
@@ -179,7 +181,6 @@ San Diego, USA}
 \setbeamertemplate{subsubsection in toc shaded}
 {\begin{colormixin}{20!white}{\usebeamertemplate{subsubsection in toc}}\end{colormixin}\unskip}
 
-
 \frame<beamer>{\frametitle{\Coq 8.5}
 \tableofcontents[sectionstyle=show/show,subsectionstyle=show/show/show]}
 
@@ -234,10 +235,12 @@ San Diego, USA}
   
 \end{subsecframe}
 
-\begin{subsecframe}{Fast record projections -- \name{M. Sozeau}}
+\begin{subsecframefragile}{Fast record projections -- \name{M. Sozeau}}
   \begin{itemize}
   \item Economic representation
-  \item Fast reduction
+  \item η-rule (for non-empty records only): 
+    \verb|Build_rec (p1 r) .. (pn r)| is canonical
+  \item Fast reduction (address of \verb|r| + offset)
   \item No more stupid unfoldings
   \end{itemize}
   
@@ -250,7 +253,7 @@ San Diego, USA}
   \TODO{MS: Graph}
 
   % * Graphe de perfs
-\end{subsecframe}
+\end{subsecframefragile}
 
 \begin{subsecframe}{New proof engine -- \name{A. Spiwack}}
   % * new internal proof engine (perfs)
@@ -286,16 +289,47 @@ San Diego, USA}
   % \begin{center}\alert{{\Huge Demo}}\end{center}
 \end{subsecframe}
 
-\begin{subsecframe}{Misc -- \Coq dev team \& contributors}
+\begin{subsecframefragile}{Misc -- \Coq dev team \& contributors}
   \begin{itemize}
   \item Interfaces, documentation, and \textsc{OCaml} best practices
     (\name{P.M. Pédrot}, $\ldots$)
+  \item Tactics in terms: \verb|$(tac)$| (\name{P.M. Pédrot})
   \item Module system simplifications (\name{P. Letouzey})
   \item Generalized intro patterns (\name{H. Herbelin, P. Letouzey})
   \item Better(?) guard condition (\name{P. Boutillier, H. Herbelin})
   \item Rewriting with strategies (\name{M. Sozeau})
   \end{itemize}
 
+\end{subsecframefragile}
+
+\begin{subsecframe}{\texttt{opam} -- \name{T. Braibant}}
+  
+  \begin{itemize}
+  \item \name{Coq, HoTT/Coq, Coq+Ssreflect}, any version, git included
+  \item Some user contribs: \name{Containers, Coccinelle, Ergo, \dots}
+  \item Submit a pull request! Try! Test!
+  \end{itemize}
+
+  \begin{center}
+    \url{http://opam.ocaml.org/}
+    \vspace{0.5em}
+
+    \url{https://github.com/braibant/opam-coq-repo}
+  \end{center}
+  \TODO{TB: USB key?}
+\end{subsecframe}
+
+\begin{subsecframe}{User libraries, plugins}
+
+  \begin{itemize}
+  \item \name{Ssreflect} 1.5 (compatibility with TCs, split between
+    \name{ssr} and \name{math-comp}, more theories: \url{http://www.msr-inria.fr/projects/mathematical-components/})
+  \item \name{Mtac}, \name{Cybele}: ``internalized'' tactic language
+  \item \name{Paco}: coinduction, logically
+  \item \name{Extlib}, \name{TLC}: extensions of the standard library
+  \item \name{Why3}: call SMT solvers from \Coq
+  \end{itemize}
+  
 \end{subsecframe}
 
 \begin{subsecframe}{The inconsistency}
@@ -319,17 +353,6 @@ San Diego, USA}
   \end{itemize}
 \end{subsecframe}
 
-\begin{subsecframe}{\texttt{opam} -- \name{T. Braibant}}
-  
-  \begin{itemize}
-  \item \name{coq, HoTT/Coq, Coq+ssreflect}, any version, git included
-  \item Some user contribs: \name{Containers, Coccinelle, Ergo, \dots}
-  \item Submit a pull request! Try! Test!
-  \end{itemize}
-
-  \TODO{TB: USB key?}
-\end{subsecframe}
-
 
 \section{The close future}
 \frame<beamer>{\frametitle{The close future}
@@ -347,8 +370,13 @@ San Diego, USA}
 
 \begin{subsecframe}{CoqMT -- \name{P.Y. Strub}}
   \begin{itemize}
-  \item Waiting for feedback
-  \item Integrated as an optional feature
+  \item Extend the definitional equality with a (first-order) decidable
+    theory, e.g. Presburger arithmetic, constructors
+  \item[$"->"$] A \emph{strict} equality avoiding coercions, a slightly
+    larger TCB.
+  \item Limited to weak eliminations (SN proof available)
+  \item Waiting for feedback (?)
+  \item To be integrated as an optional feature
   \end{itemize}
 \end{subsecframe}  
 
@@ -385,13 +413,22 @@ San Diego, USA}
   Usability, effiency woes:
   \begin{itemize}
   \item I/O, FFI (\TODO{MD: Demo Hello world! in Coq})
-  \item A sliding scale for efficiency/safety in the kernl (idea:
-    tainting features)
+  \item A sliding scale for efficiency/safety in the kernel (ideas:
+    tainting code/data, signatures). Allowing, unchecked recursive
+    definitions, custom reductions\dots
   \item Definitional proof-irrelevance based on bracket types (useful
     for DTP and recursion encodings)
   \item Type-based termination (sized-types, \name{J. L. Sachini})
   \end{itemize}
 \end{subsecframe}
+
+% \begin{subsecframe}{Consortium}
+% \end{subsecframe}
+% \begin{subsecframe}{Development model}
+%   Recentralize (\name{P. Letouzey}, \Coq dev team)
+%   \begin{itemize}
+%   \item , bugzilla, website on new machine (TODO by Pierre L), patches, dependencies of Coq, publishing libraries TODO : move to discussion ?
+
 \end{document}
 
 %%% Local Variables: 
