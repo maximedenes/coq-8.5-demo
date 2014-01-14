@@ -1,0 +1,63 @@
+% Copyright 2007-2008 by Matthieu Sozeau <sozeau@lri.fr>
+% Started from Boadila.sty
+% Copyright 2004 by Manuel Carro <mcarro@fi.upm.es>
+%
+% This program can be redistributed and/or modified under the terms
+% of the GNU Public License, version 2.
+
+\mode<presentation>
+
+\usefonttheme{professionalfonts}
+\setbeamercovered{invisible}
+
+\usecolortheme{orchid}
+\useinnertheme[shadow]{rounded}
+\useinnertheme{rectangles}
+\usecolortheme{whale}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{mini frames}[box]
+\setbeamertemplate{itemize items}[triangle]
+\setbeamertemplate{enumerate items}[square]
+
+% from infolines
+\setbeamercolor*{author in head/foot}{parent=palette tertiary}
+\setbeamercolor*{title in head/foot}{parent=palette secondary}
+\setbeamercolor*{date in head/foot}{parent=palette primary}
+
+\definecolor{titlered}{rgb}{0.8,0.1,0.1}
+
+\setbeamerfont{block title}{size={}}
+
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{pages in head/foot}%
+      \insertframenumber{}\hspace*{2ex}% / \inserttotalframenumber\hspace*{2ex} 
+    \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+\setbeamertemplate{headline}{}
+
+%\setbeamercolor*{frametitle}{bg=white,fg=titlered}
+%\setbeamerfont{frametitle}{series=\rmfamily}
+
+
+\setbeamercolor*{section in head/foot}{parent=palette tertiary}
+\setbeamercolor*{subsection in head/foot}{parent=palette primary}
+
+\setbeamertemplate{frametitle}{
+  \ifbeamercolorempty[bg]{frametitle}{}{\nointerlineskip}%
+  \@tempdima=\textwidth%
+  \advance\@tempdima by2em%
+  \advance\@tempdima by\beamer@rightmargin%
+  \begin{beamercolorbox}[ht=0.5cm,left,dp=1ex,wd=\the\@tempdima]{frametitle}
+    \hskip0.3cm\usebeamerfont{frametitle}\insertframetitle%
+  \end{beamercolorbox}%
+}
+
+\setbeamersize{text margin left=2.5em,text margin right=2em}
+
+\mode
+<all>

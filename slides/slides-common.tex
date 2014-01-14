@@ -4,7 +4,6 @@
 \usepackage{xspace} % To get the right spacings in front of : and so on
 \usepackage[english]{babel}
 \usepackage{subfigure}
-\usepackage{bussproofs}
 \usepackage{pgf}
 \usepackage{colortbl}
 \usepackage{xcolor}
@@ -12,28 +11,21 @@
 \usepackage[color]{coqdoc}
 \def\coqlibrary#1#2{}
 
-\usepackage{hyperref}
 \usepackage{coq}
-\usepackage{code}
-\usepackage{codecolor}
-\usepackage{cond}
-\usepackage{me}
 \usepackage{tikz}
 \usetikzlibrary{shapes}
 \usepackage{pifont}
-\usepackage{proof}
 \usepackage{utf}
 \usepackage{natbib}
 \usepackage[OT1]{fontenc}
 \usepackage{alltt}
-\usepackage{amsthm}
+\def\thetitle{\Coq 8.5: what's new, what's next?}
+\def\names{M. Dénès, M. Sozeau}
+\def\theauthor{\name{M. Dénès}$^{\dagger}$ \& \name{M. Sozeau}$^{*}$}
+\usepackage{hyperref}
 
-
-\input{coqmacros}
-%\input{univmacros}
 
 \def\vec#1{\overrightarrow{#1}}
-\def\thetitle{\Coq 8.5: what's new, what's next?}
 \def\thetextitleabbr{\thetitle}
 \def\thetextitle{\thetextitleabbr}
 \def\thesubject{Theoretical Computer Science}
@@ -45,16 +37,11 @@ San Diego, USA}
 \def\theauthorabbr{\name{M. Dénès} \& \name{M. Sozeau}}
 \usepackage{prelude-beamer}
 
-\author{M. Dénès, \myname{}}
-\def\theauthor{\name{M. Dénès}$^{\dagger}$ \& \name{M. Sozeau}$^{*}$}
+\author{\theauthorabbr}
 \def\PI{\name{PI}}
 \def\shaded#1{{\color{black!50}#1}}
  
 \def\seq{\fCenter}
-
-\def\lang{en}
-\input{mathenv}
-\setboolean{displayLabels}{true}
 
 \pgfdeclareimage[height=1.4cm]{inria-logo}{inria-logo}
 
@@ -91,8 +78,6 @@ San Diego, USA}
 
 \setlength{\coqdocbaseindent}{0em}
 
-\renewcommand{\eqbr}{`=_{\beta}}
-
 \def\coqlibrary#1#2#3{}
 
 % Tutorial
@@ -116,61 +101,6 @@ San Diego, USA}
 \definecolor{darkmagenta}{rgb}{0.4,0.0,0.6}
 \definecolor{darkblue}{rgb}{0.0,0.0,0.6}
 
-
-\newcommand{\corkscrew}{\boldsymbol{\large \vdash}}
-%\newcommand{\disj}{\mbox{$\backslash/$}}
-%\newcommand{\conj}{\mbox{$/\backslash$}}
-\newcommand{\juge}[3]{\mbox{$#1 \boldsymbol{\vdash} #2 : \color{red}#3 $}}
-%\newcommand{\juge}[4]{\mbox{$#1,#2 \corkscrew #3 \boldsymbol{:} #4 $}}
-%\newcommand{\smalljuge}[3]{\mbox{$#1 \corkscrew #2 \boldsymbol{:} #3 $}}
-%\newcommand{\goal}[3]{\mbox{$#1,#2 \corkscrew^{\!\!\!?} #3  $}}
-%\newcommand{\sgoal}[2]{\mbox{$#1\corkscrew^{\!\!\!\!?} #2 $}}
-%\newcommand{\reduc}[5]{\mbox{$#1,#2 \corkscrew #3 \rhd_{#4}#5 $}}
-%\newcommand{\convert}[5]{\mbox{$#1,#2 \corkscrew #3 =_{#4}#5 $}}
-%\newcommand{\convorder}[5]{\mbox{$#1,#2 \corkscrew #3\leq _{#4}#5 $}}
-%\newcommand{\wouff}[2]{\mbox{$\emph{WF}(#1)[#2]$}}
-
-
-\newcommand{\mthese}{\underset{M}{\vdash}}
-%\newcommand{\jthese}{\mathop{\vdash}_J}
-%\newcommand{\jthese}{\stackrel[J]{}{\vdash}}
-\newcommand{\jthese}{\underset{\tiny J}{\vdash}}
-%\newcommand{\jthese}{\boldsymbol{\vdash}_{\tiny{ \!\!J}}}
-
-\newcommand{\jsequent}[2]{\mbox{$#1\;\jthese\; #2 $}}
-\newcommand{\msequent}[2]{\mbox{$#1\;\mthese\; #2 $}}
-
-
-
-%\newcommand{\type}{\boldsymbol{:}}
-
-
-\newcommand{\answ}{\color{answercolor}}
-\newcommand{\coquser}{\color{normalcolor}}
-\newcommand{\Ord}{\mbox{$\mathbb{O}$}}
-\newcommand{\ords}{\mbox{\(\mathbb{O}\)}}
-\newcommand{\nl}{\mbox{$\underset{\scriptstyle NL}{\longrightarrow}$}}
-\newcommand{\base}[1]{{\color{lookcolor}#1}}
-\newcommand{\om}{\mbox{$\omega$}}
-
-%_{\alpha\beta\delta\iota}
-\def\order{\mathcal{O}}
-\def\tchecking#1#2#3{\ensuremath{#1 \vdash #2 : #3}}
-\def\tconv#1#2#3#4{\ensuremath{#1 \vdash #2 = #3 "~>"
-    #4}}
-\def\tcumul#1#2#3#4{\ensuremath{#1 \vdash #2 \leq #3 "~>"
-    #4}}
-
-\def\tinfer#1#2#3#4#5#6{\ensuremath{#1; #2 \vdash #3 \Uparrow\ 
-    "~>" #4 \vdash #5 : #6}}
-
-\def\tcheck#1#2#3#4#5#6#7{\ensuremath{#1; #2 \vdash #3 \Downarrow #4
-    "~>" #5 \vdash #6 : #7}}
-
-\usepackage{mathpartir}
-%\newcommand{\trule}[1]{\textsc{#1}}
-%\newcommand{\irule}[3]
-%{\inferrule{ #2 }{ #3 }{\ \trule{#1}}}
 \newenvironment{subsecframe}[1]{\begin{subsection}{#1}\begin{frame}\frametitle{#1}}%
     {\end{frame}\end{subsection}}
 
