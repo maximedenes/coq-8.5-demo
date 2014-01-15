@@ -292,7 +292,7 @@ San Diego, USA}
 \begin{subsecframefragile}{Misc -- \Coq dev team \& contributors}
   \begin{itemize}
   \item Interfaces, documentation, and \textsc{OCaml} best practices
-    (\name{P.M. Pédrot}, $\ldots$)
+    (\name{P.M. Pédrot}, $\ldots$). \alert{Down to 8.3 performance!}
   \item Tactics in terms: \verb|$(tac)$| (\name{P.M. Pédrot})
   \item Module system simplifications (\name{P. Letouzey})
   \item Generalized intro patterns (\name{H. Herbelin, P. Letouzey})
@@ -332,10 +332,10 @@ San Diego, USA}
   
 \end{subsecframe}
 
-\begin{subsecframe}{The inconsistency}
+\begin{subsecframe}{The bug}
   \begin{itemize}
   \item Due to a (very) extensional axiom, related to \emph{equality} on
-    types.
+    types interacting with the guard condition.
   \item A good fix is known, but breaks the stdlib's use of the smart
     guard condition (ha ha). All definitions can be adapted. Work by
     \name{B. Barras, C. Paulin, M. Dénès, P. Boutilier}, $\ldots$
@@ -368,14 +368,15 @@ San Diego, USA}
   
 \end{subsecframe}
 
-\begin{subsecframe}{CoqMT -- \name{P.Y. Strub}}
+\begin{subsecframe}{CoqMT -- \name{P.Y. Strub} et al}
   \begin{itemize}
   \item Extend the definitional equality with a (first-order) decidable
     theory, e.g. Presburger arithmetic, constructors
   \item[$"->"$] A \emph{strict} equality avoiding coercions, a slightly
-    larger TCB.
-  \item Limited to weak eliminations (SN proof available)
-  \item Waiting for feedback (?)
+    larger TCB (SN proof available).
+  \item Some limitations on the use of equalities in context
+  \item Current state: useful but not as well-integrated as it could
+    be, still at 8.3.
   \item To be integrated as an optional feature
   \end{itemize}
 \end{subsecframe}  
@@ -388,7 +389,7 @@ San Diego, USA}
   HoTT ideas, math oriented:
   \begin{itemize}
   \item HITs (prototype by \name{B. Barras})
-  \item Resizing of universes
+  \item Resizing rules
   \item \alert{\emph{Definitionally}}: βδ, η?, ι? 
   \item \alert{\emph{Propositionally}}: proof-irrelevance, functional extensionality,
     isomorphic types are equal (from an axiom).
