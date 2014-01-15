@@ -292,7 +292,7 @@ San Diego, USA}
 \begin{subsecframefragile}{Misc -- \Coq dev team \& contributors}
   \begin{itemize}
   \item Interfaces, documentation, and \textsc{OCaml} best practices
-    (\name{P.M. Pédrot}, $\ldots$). \alert{Down to 8.3 performance!}
+    (\name{P.M. Pédrot}, $\ldots$). \alert{Performance is better than 8.4}
   \item Tactics in terms: \verb|$(tac)$| (\name{P.M. Pédrot})
   \item Module system simplifications (\name{P. Letouzey})
   \item Generalized intro patterns (\name{H. Herbelin, P. Letouzey})
@@ -319,34 +319,9 @@ San Diego, USA}
   \TODO{TB: USB key?}
 \end{subsecframe}
 
-\begin{subsecframe}{User libraries, plugins}
-
-  \begin{itemize}
-  \item \name{Ssreflect} 1.5 (compatibility with TCs, split between
-    \name{ssr} and \name{math-comp}, more theories: \url{http://www.msr-inria.fr/projects/mathematical-components/})
-  \item \name{Mtac}, \name{Cybele}: ``internalized'' tactic language
-  \item \name{Paco}: coinduction, logically
-  \item \name{Extlib}, \name{TLC}: extensions of the standard library
-  \item \name{Why3}: call SMT solvers from \Coq
-  \end{itemize}
-  
-\end{subsecframe}
-
-\begin{subsecframe}{The bug}
-  \begin{itemize}
-  \item Due to a (very) extensional axiom, related to \emph{equality} on
-    types interacting with the guard condition.
-  \item A good fix is known, but breaks the stdlib's use of the smart
-    guard condition (ha ha). All definitions can be adapted. Work by
-    \name{B. Barras, C. Paulin, M. Dénès, P. Boutilier}, $\ldots$
-  \item[=] Happens in \name{Agda} too!
-  \item Argues for less syntax and more logic.
-  \end{itemize}
-\end{subsecframe}
-
 \begin{subsecframe}{Tentative planning}
   \begin{itemize}
-  \item February 2014: 8.5-α release and 8.4pl6 (or 8.4-2) (\TODO{MS:n bugs closed})
+  \item Late February 2014: 8.5-α release and 8.4pl6 (or 8.4-2) (\TODO{MS:n bugs closed})
   \item April 2014: 8.5-β release and opening of new branch
     (only bug fixes in trunk between α and β)
   \item August 2014: final release
@@ -361,8 +336,13 @@ San Diego, USA}
 \begin{subsecframe}{Performance}
 
   \begin{itemize}
-  \item Caching of typechecked terms (\name{E. Tassi, M. Sozeau})
-  \item Generalized hashconsing (\name{T. Braibant, M. Sozeau,
+  \item A sliding scale for efficiency/safety in the kernel (ideas:
+    tainting code/data, signatures). Allowing, unchecked recursive
+    definitions, custom reductions\dots
+  \item Machine integers and persistent arrays (\name{M. Dénès})
+  \item Caching of typechecked terms (\name{E. Tassi, M. Sozeau}):
+    typecheck once, reuse as many times at 0 cost!
+  \item Maximal sharing / generalized hashconsing of terms (\name{T. Braibant, M. Sozeau,
       P. M. Pédrot, $\ldots$})
   \end{itemize}
   
@@ -372,8 +352,8 @@ San Diego, USA}
   \begin{itemize}
   \item Extend the definitional equality with a (first-order) decidable
     theory, e.g. Presburger arithmetic, constructors
-  \item[$"->"$] A \emph{strict} equality avoiding coercions, a slightly
-    larger TCB (SN proof available).
+  \item[$"->"$] A \emph{strict} equality avoiding coercions, 
+    if used, a slightly larger TCB (SN proof available).
   \item Some limitations on the use of equalities in context
   \item Current state: useful but not as well-integrated as it could
     be, still at 8.3.
@@ -386,10 +366,14 @@ San Diego, USA}
 \tableofcontents[sectionstyle=show/show,hideallsubsections]}
 
 \begin{subsecframe}{HoTT or OTT?}
+
+  \TODO{MS: split, give developer/user high-level views}
+  \Coq's position as a compromise.
+
   HoTT ideas, math oriented:
   \begin{itemize}
-  \item HITs (prototype by \name{B. Barras})
-  \item Resizing rules
+  \item HITs (prototype by \name{B. Barras}, \name{J. Gross} will talk about them next)
+  \item \texttt{hProp}/\texttt{hSet}, resizing rules
   \item \alert{\emph{Definitionally}}: βδ, η?, ι? 
   \item \alert{\emph{Propositionally}}: proof-irrelevance, functional extensionality,
     isomorphic types are equal (from an axiom).
@@ -397,7 +381,7 @@ San Diego, USA}
   
   OTT/Epigram ideas, CS oriented:
   \begin{itemize}
-  \item Levitation of inductive types
+  \item Generic programming on inductive types.
   \item Clear $\Prop$/$\Set$ separation
   \item \alert{\emph{Definitionally}}: βδηι, proof-irrelevance, functional
     extensionality.
@@ -414,11 +398,8 @@ San Diego, USA}
   Usability, effiency woes:
   \begin{itemize}
   \item I/O, FFI (\TODO{MD: Demo Hello world! in Coq})
-  \item A sliding scale for efficiency/safety in the kernel (ideas:
-    tainting code/data, signatures). Allowing, unchecked recursive
-    definitions, custom reductions\dots
-  \item Definitional proof-irrelevance based on bracket types (useful
-    for DTP and recursion encodings)
+  \item Proof-irrelevance in conversion: gives ``true'' dependent
+    pattern-matching, true subset/refinement types.
   \item Type-based termination (sized-types, \name{J. L. Sachini})
   \end{itemize}
 \end{subsecframe}
@@ -429,6 +410,40 @@ San Diego, USA}
 %   Recentralize (\name{P. Letouzey}, \Coq dev team)
 %   \begin{itemize}
 %   \item , bugzilla, website on new machine (TODO by Pierre L), patches, dependencies of Coq, publishing libraries TODO : move to discussion ?
+
+
+\begin{subsecframe}{User libraries, plugins}
+
+  \begin{itemize}
+  \item \name{Ssreflect} 1.5 (compatibility with TCs, split between
+    \name{ssr} and \name{math-comp}, more theories: \url{http://www.msr-inria.fr/projects/mathematical-components/})
+  \item \name{Mtac}, \name{Cybele}: ``internalized'' tactic language
+    (demo by \name{B. Ziliani})
+  \item \name{Paco}: coinduction, logically
+  \item \name{Extlib}, \name{TLC}: extensions of the standard library
+    (demos by \name{G. Malecha}, \name{A. Charguéraud})
+  \item \name{Why3}: call SMT solvers from \Coq (demo by \name{J.C. Filliâtre})
+  \item \name{CoqMT} demo by \name{P.Y. Strub}
+  \item \name{Equations}: dependent pattern-matching compilation (demo
+    by \name{M. Sozeau})
+  \end{itemize}
+  
+\end{subsecframe}
+
+\begin{subsecframe}{The end}
+\end{subsecframe}
+
+\begin{subsecframe}{The bug}
+  \begin{itemize}
+  \item Due to a (very) extensional axiom, related to \emph{equality} on
+    types interacting with the guard condition.
+  \item A good fix is known, but breaks the stdlib's use of the smart
+    guard condition (ha ha). All definitions can be adapted. Work by
+    \name{B. Barras, C. Paulin, M. Dénès, P. Boutilier}, $\ldots$
+  \item[=] Happens in \name{Agda} too!
+  \item Argues for less syntax and more logic.
+  \end{itemize}
+\end{subsecframe}
 
 \end{document}
 
