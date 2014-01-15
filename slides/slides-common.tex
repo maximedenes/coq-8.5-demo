@@ -182,22 +182,10 @@ San Diego, USA}
 {\begin{colormixin}{20!white}{\usebeamertemplate{subsubsection in toc}}\end{colormixin}\unskip}
 
 \frame<beamer>{\frametitle{\Coq 8.5}
-\tableofcontents[sectionstyle=show/show,subsectionstyle=show/show/show]}
+\tableofcontents[sectionstyle=show/show,hideallsubsections]}
 
 \section{Up and coming}
-\begin{subsecframe}{Native compilation -- \name{M. Dénès}}
-\begin{itemize}
-\item NbE style (?)
-\item \Coq $"->"^{\texttt{nativecomp}}$ \textsc{ML} $"->"^{\texttt{ocamlopt}}$ \textsc{ASM}
-\item Faster than \texttt{vm\_compute}
-\end{itemize}
-
-  \begin{itemize}
-  \item[+] \emph{Optional}
-  \item[++/--] \emph{Faster at runtime, compilation is slow}
-  \end{itemize}
-\end{subsecframe}
-
+  
 \begin{subsecframe}{Incremental development -- \name{E. Tassi}}
   \begin{itemize}
   \item \texttt{git} model
@@ -209,6 +197,24 @@ San Diego, USA}
   \begin{itemize}
   \item[-/++] \emph{Not optional, backwards-compatible}
   \item[+++] \emph{Faster interaction and compilation}
+  \end{itemize}
+\end{subsecframe}
+
+\begin{subsecframe}{New proof engine -- \name{A. Spiwack}}
+  % * new internal proof engine (perfs)
+  % - eauto backtrack with ; true proof search
+  % "all:", tactical "+", "once", a native "refine"
+
+  \begin{itemize}
+  \item Existential variables + \texttt{LogicT}
+  \item Proof-search semantics (\texttt{;}, \texttt{+}, $\ldots$)
+  \item Cleaner code: abstract monadic interface
+  \item Native \texttt{refine}, dependent goals, goal manipulation
+  \end{itemize}
+  
+  \begin{itemize}
+  \item[--/++] \emph{Not optional, backwards-compatibility layer}
+  \item[--] \emph{0-15\% time overhead (still invesigating, \textsc{OCaml} issue likely)}
   \end{itemize}
 \end{subsecframe}
 
@@ -232,7 +238,19 @@ San Diego, USA}
       universes, impacts the ML hacker only}. Backwards-compatibility layer.
   \item[=+/+] \emph{Comparable or better performance, more expressive}
   \end{itemize}
-  
+\end{subsecframe}
+
+\begin{subsecframe}{Native compilation -- \name{M.~Dénès \& B.~Grégoire}}
+\begin{itemize}
+\item Useful for large reflection proofs
+\item \Coq $"->"^{\texttt{nativecomp}}$ \textsc{ML} $"->"^{\texttt{ocamlopt}}$ \textsc{ASM}
+\item Faster than \texttt{vm\_compute}
+\end{itemize}
+
+  \begin{itemize}
+  \item[+] \emph{Optional}
+  \item[++/--] \emph{Faster at runtime, compilation is slow}
+  \end{itemize}
 \end{subsecframe}
 
 \begin{subsecframefragile}{Fast record projections -- \name{M. Sozeau}}
@@ -255,24 +273,6 @@ San Diego, USA}
   % * Graphe de perfs
 \end{subsecframefragile}
 
-\begin{subsecframe}{New proof engine -- \name{A. Spiwack}}
-  % * new internal proof engine (perfs)
-  % - eauto backtrack with ; true proof search
-  % "all:", tactical "+", "once", a native "refine"
-
-  \begin{itemize}
-  \item Existential variables + \texttt{LogicT}
-  \item Proof-search semantics (\texttt{;}, \texttt{+}, $\ldots$)
-  \item Cleaner code: abstract monadic interface
-  \item Native \texttt{refine}, dependent goals, goal manipulation
-  \end{itemize}
-  
-  \begin{itemize}
-  \item[--/++] \emph{Not optional, backwards-compatibility layer}
-  \item[--] \emph{0-15\% time overhead (still invesigating, \textsc{OCaml} issue likely)}
-  \end{itemize}
-
-\end{subsecframe}
 \begin{subsecframe}{New coqdoc -- \name{Y. Régis-Gianas}}
   \begin{itemize}
   \item Based on the AST and \alert{\emph{not}} lexing anymore
@@ -356,7 +356,7 @@ San Diego, USA}
 
 \section{The close future}
 \frame<beamer>{\frametitle{The close future}
-\tableofcontents[sectionstyle=show/show,subsectionstyle=show/show/show]}
+\tableofcontents[sectionstyle=show/show,hideallsubsections]}
 
 \begin{subsecframe}{Performance}
 
@@ -382,7 +382,7 @@ San Diego, USA}
 
 \section{The distant future}
 \frame<beamer>{\frametitle{The distant future}
-\tableofcontents[sectionstyle=show/show,subsectionstyle=show/show/show]}
+\tableofcontents[sectionstyle=show/show,hideallsubsections]}
 
 \begin{subsecframe}{HoTT or OTT?}
   HoTT ideas, math oriented:
