@@ -107,6 +107,8 @@ San Diego, USA}
 
 \newenvironment{subsecframefragile}[1]{\begin{frame}[fragile,environment=subsecframefragile]\frametitle{#1}\begin{subsection}{#1}}{\end{subsection}\end{frame}}
 
+\newcommand{\demoframe}[2]{\begin{frame}\begin{center}{\Huge #1}\\\bigskip{\Large #2}\end{center}\end{frame}}
+
 \begin{document}
 
 
@@ -185,7 +187,9 @@ San Diego, USA}
 \tableofcontents[sectionstyle=show/show,hideallsubsections]}
 
 \section{Up and coming}
-  
+
+\demoframe{Incremental development}{Enrico Tassi}
+
 \begin{subsecframe}{Incremental development -- \name{E. Tassi}}
   \begin{itemize}
   \item \texttt{git} model
@@ -199,6 +203,8 @@ San Diego, USA}
   \item[+++] \emph{Faster interaction and compilation}
   \end{itemize}
 \end{subsecframe}
+
+\demoframe{New proof engine}{Arnaud Spiwack}
 
 \begin{subsecframe}{New proof engine -- \name{A. Spiwack}}
   % * new internal proof engine (perfs)
@@ -214,9 +220,11 @@ San Diego, USA}
   
   \begin{itemize}
   \item[--/++] \emph{Not optional, backwards-compatibility layer}
-  \item[--] \emph{0-15\% time overhead (still invesigating, \textsc{OCaml} issue likely)}
+  \item[--] \emph{0-15\% time overhead (still investigating, \textsc{OCaml} issue likely)}
   \end{itemize}
 \end{subsecframe}
+
+\demoframe{Universe polymorphism}{Matthieu Sozeau}
 
 \begin{subsecframe}{Universe polymorphism -- \name{M. Sozeau}}
 % Def interactive
@@ -240,6 +248,8 @@ San Diego, USA}
   \end{itemize}
 \end{subsecframe}
 
+\demoframe{Native compilation}{Maxime Dénès \& Benjamin Grégoire}
+
 \begin{subsecframe}{Native compilation -- \name{M.~Dénès \& B.~Grégoire}}
 \begin{itemize}
 \item Useful for large reflection proofs
@@ -252,6 +262,8 @@ San Diego, USA}
   \item[++/--] \emph{Faster at runtime, compilation is slow}
   \end{itemize}
 \end{subsecframe}
+
+\demoframe{Fast record projections}{Matthieu Sozeau}
 
 \begin{subsecframefragile}{Fast record projections -- \name{M. Sozeau}}
   \begin{itemize}
@@ -272,6 +284,8 @@ San Diego, USA}
 
   % * Graphe de perfs
 \end{subsecframefragile}
+
+\demoframe{New coqdoc}{Yann Régis-Gianas}
 
 \begin{subsecframe}{New coqdoc -- \name{Y. Régis-Gianas}}
   \begin{itemize}
@@ -340,7 +354,7 @@ San Diego, USA}
   \item A sliding scale for efficiency/safety in the kernel (ideas:
     tainting code/data, signatures). Allowing, unchecked recursive
     definitions, custom reductions\dots
-  \item Machine integers and persistent arrays (\name{M. Dénès})
+  \item Machine integers and persistent arrays (\name{M. Dénès, B.~Grégoire})
   \item Caching of typechecked terms (\name{E. Tassi, M. Sozeau}):
     typecheck once, reuse as many times at 0 cost!
   \item Maximal sharing / generalized hashconsing of terms (\name{T. Braibant, M. Sozeau,
@@ -421,14 +435,14 @@ San Diego, USA}
   \item \name{Ssreflect} 1.5 (compatibility with TCs, split between
     \name{ssr} and \name{math-comp}, more theories: \url{http://www.msr-inria.fr/projects/mathematical-components/})
   \item \name{Mtac}, \name{Cybele}: ``internalized'' tactic language
-    (demo by \name{B. Ziliani})
+    (demo by \name{B.~Ziliani})
   \item \name{Paco}: coinduction, logically
   \item \name{Extlib}, \name{TLC}: extensions of the standard library
-    (demos by \name{G. Malecha}, \name{A. Charguéraud})
-  \item \name{Why3}: call SMT solvers from \Coq (demo by \name{J.C. Filliâtre})
-  \item \name{CoqMT} demo by \name{P.Y. Strub}
+    (demos by \name{G.~Malecha}, \name{A.~Charguéraud})
+  \item \name{Why3}: call SMT solvers from \Coq (demo by \name{J.C.~Filliâtre})
+  \item \name{CoqMT} demo by \name{P.Y.~Strub}
   \item \name{Equations}: dependent pattern-matching compilation (demo
-    by \name{M. Sozeau})
+    by \name{M.~Sozeau})
   \end{itemize}
   
 \end{subsecframe}
