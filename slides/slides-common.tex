@@ -295,8 +295,9 @@ San Diego, USA}
     (\name{P.M. Pédrot}, $\ldots$). \alert{Performance is better than 8.4}
   \item Tactics in terms: \verb|$(tac)$| (\name{P.M. Pédrot})
   \item Module system simplifications (\name{P. Letouzey})
-  \item Generalized intro patterns (\name{H. Herbelin, P. Letouzey})
-  \item Better(?) guard condition (\name{P. Boutillier, H. Herbelin})
+  \item Tactic improvements (e.g. intro patterns in \texttt{injection})
+    (\name{H. Herbelin, P. Letouzey, \dots})
+  \item More expressive guard condition (\name{P. Boutillier, H. Herbelin})
   \item Rewriting with strategies (\name{M. Sozeau})
   \end{itemize}
 
@@ -400,7 +401,7 @@ San Diego, USA}
   \item I/O, FFI
   \item Proof-irrelevance in conversion: gives ``true'' dependent
     pattern-matching, true subset/refinement types.
-  \item Type-based termination (sized-types, \name{J. L. Sachini})
+  \item Type-based termination (sized-types, \name{J. L. Sacchini})
   \end{itemize}
 \end{subsecframe}
 
@@ -438,12 +439,14 @@ San Diego, USA}
 \begin{subsecframe}{The bug}
   \begin{itemize}
   \item Due to a (very) extensional axiom, related to \emph{equality} on
-    types interacting with the guard condition.
-  \item A good fix is known, but breaks the stdlib's use of the smart
-    guard condition (ha ha). All definitions can be adapted. Work by
-    \name{B. Barras, C. Paulin, M. Dénès, P. Boutilier}, $\ldots$
+    types interacting with the untyped guard condition.
+  \item A fix is known, but breaks a few legitimate uses of the recently
+    extended guard condition in the stdlib. All definitions can be
+    adapted. Work by \name{B. Barras, C. Paulin, M. Dénès,
+      P. Boutilier}, $\ldots$
   \item[=] Happens in \name{Agda} too!
-  \item Argues for less syntax and more logic.
+  \item Argues for less syntax and more logic and/or
+    certified metatheoretical proofs.
   \end{itemize}
 \end{subsecframe}
 
