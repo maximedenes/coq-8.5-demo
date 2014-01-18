@@ -103,9 +103,9 @@ San Diego, USA}
 
 %\newenvironment{subsecframe}[2][]{\begin{frame}[environment=subsecframe,#1]\frametitle{#2}\begin{subsection}{#2}}{\end{subsection}\end{frame}}
 
-\newenvironment{subsecframe}[1]{\begin{subsection}{#1}\begin{frame}\frametitle{#1}}{\end{frame}\end{subsection}}
+\newenvironment{subsecframe}[1]{\begin{subsection}{#1}\begin{frame}\frametitle<presentation>{#1}}{\end{frame}\end{subsection}}
 
-\newenvironment{subsecframefragile}[1]{\begin{frame}[fragile,environment=subsecframefragile]\frametitle{#1}\begin{subsection}{#1}}{\end{subsection}\end{frame}}
+\newenvironment{subsecframefragile}[1]{\begin{frame}[fragile,environment=subsecframefragile]\frametitle<presentation>{#1}\begin{subsection}{#1}}{\end{subsection}\end{frame}}
 
 \begin{document}
 
@@ -191,7 +191,7 @@ San Diego, USA}
   \item \texttt{git} model
   \item Granularity: opaque lemmas
   \item \texttt{.vi} interfaces: cross-file compilation
-  \item CoqIDE only (emacs interface hard to implement)
+  \item CoqIDE only (Emacs interface hard to implement)
   \end{itemize}
 
   \begin{itemize}
@@ -214,7 +214,7 @@ San Diego, USA}
   
   \begin{itemize}
   \item[--/++] \emph{Not optional, backwards-compatibility layer}
-  \item[--] \emph{0-15\% time overhead (still invesigating, \textsc{OCaml} issue likely)}
+  \item[--] \emph{0-15\% time overhead (still investigating, \textsc{OCaml} issue likely)}
   \end{itemize}
 \end{subsecframe}
 
@@ -226,7 +226,7 @@ San Diego, USA}
     quantification. \emph{Conservativity proof}
   \item \emph{Elaboration} from typical ambiguity + implicit
     generalization.
-  \item Checks \texttt{HoTT/Coq}, B. Barras and T. Coquand's semi-simplicial
+  \item Checks \texttt{HoTT/Coq}, B. Barras and T. Cowhand's semi-simplicial
     model and another (1-)groupoid model.
     \pause
   \item Better error messaging, unification sensitive to universes.
@@ -343,7 +343,7 @@ San Diego, USA}
   \item Machine integers and persistent arrays (\name{M. Dénès})
   \item Caching of typechecked terms (\name{E. Tassi, M. Sozeau}):
     typecheck once, reuse as many times at 0 cost!
-  \item Maximal sharing / generalized hashconsing of terms (\name{T. Braibant, M. Sozeau,
+  \item Maximal sharing / generalized hash-consing of terms (\name{T. Braibant, M. Sozeau,
       P. M. Pédrot, $\ldots$})
   \end{itemize}
   
@@ -371,32 +371,35 @@ San Diego, USA}
   \TODO{MS: split, give developer/user high-level views}
   \Coq's position as a compromise.
 
-  HoTT ideas, math oriented:
   \begin{itemize}
-  \item HITs (prototype by \name{B. Barras}, \name{J. Gross} will talk about them next)
-  \item \texttt{hProp}/\texttt{hSet}, resizing rules
-  \item \alert{\emph{Definitionally}}: βδ, η?, ι? 
-  \item \alert{\emph{Propositionally}}: proof-irrelevance, functional extensionality,
-    isomorphic types are equal (from an axiom).
+  \item 
+    HoTT ideas, math oriented:
+    \begin{itemize}
+    \item HITs (prototype by \name{B. Barras}, \name{J. Gross} will talk about them next)
+    \item \texttt{hProp}/\texttt{hSet}, resizing rules
+    \item \alert{\emph{Definitionally}}: βδ, η?, ι? 
+    \item \alert{\emph{Propositionally}}: proof-irrelevance, functional extensionality,
+      isomorphic types are equal (from an axiom).
+    \end{itemize}
+  \item 
+    OTT/Epigram ideas, CS oriented:
+    \begin{itemize}
+    \item Generic programming on inductive types.
+    \item Clear $\Prop$/$\Set$ separation
+    \item \alert{\emph{Definitionally}}: βδηι, proof-irrelevance, functional
+      extensionality.
+    \item<presentation:only@0> \alert{\emph{Propositionally}}: defined, heterogeneous on
+      values, structural on types ($\neq$ iso). 
+      With coercion and coherence operators.
+    \end{itemize}
   \end{itemize}
   
-  OTT/Epigram ideas, CS oriented:
-  \begin{itemize}
-  \item Generic programming on inductive types.
-  \item Clear $\Prop$/$\Set$ separation
-  \item \alert{\emph{Definitionally}}: βδηι, proof-irrelevance, functional
-    extensionality.
-  \item \alert{\emph{Propositionally}}: defined, heterogeneous on
-    values, structural on types ($\neq$ iso). 
-    With coercion and coherence operators.
-  \end{itemize}
-
   Ideally, we should mix the two\dots
 \end{subsecframe}
 
 \begin{subsecframe}{\Coq as a programming language}
 
-  Usability, effiency woes:
+  Usability, efficiency woes:
   \begin{itemize}
   \item I/O, FFI
   \item Proof-irrelevance in conversion: gives ``true'' dependent
@@ -422,7 +425,7 @@ San Diego, USA}
     \name{ssr} and \name{math-comp}, more theories: \url{http://www.msr-inria.fr/projects/mathematical-components/})
   \item \name{Mtac}, \name{Cybele}: ``internalized'' tactic language
     (demo by \name{B. Ziliani})
-  \item \name{Paco}: coinduction, logically
+  \item \name{Paco}: co-induction, logically
   \item \name{Extlib}, \name{TLC}: extensions of the standard library
     (demos by \name{G. Malecha}, \name{A. Charguéraud})
   \item \name{Why3}: call SMT solvers from \Coq (demo by \name{J.C. Filliâtre})
@@ -443,7 +446,7 @@ San Diego, USA}
   \item A fix is known, but breaks a few legitimate uses of the recently
     extended guard condition in the stdlib. All definitions can be
     adapted. Work by \name{B. Barras, C. Paulin, M. Dénès,
-      P. Boutilier}, $\ldots$
+      P. Boutillier}, $\ldots$
   \item[=] Happens in \name{Agda} too!
   \item Argues for less syntax and more logic and/or
     certified metatheoretical proofs.
