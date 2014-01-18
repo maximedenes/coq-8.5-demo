@@ -45,7 +45,7 @@ San Diego, USA}
 
 \pgfdeclareimage[height=1.4cm]{inria-logo}{inria-logo}
 
-\pgfdeclareimage[height=1.4cm]{coq-biglogo}{barron-logo-pdf}
+\pgfdeclareimage[height=3cm]{coq-biglogo}{barron-logo-pdf}
 \pgfdeclareimage[height=0.4cm]{coq-smalllogo}{barron-logo}
 \pgfdeclareimage[height=1cm,interpolate=true]{coq-logo}{barron-logo-pdf}
 
@@ -107,43 +107,10 @@ San Diego, USA}
 
 \newenvironment{subsecframefragile}[1]{\begin{frame}[fragile,environment=subsecframefragile]\frametitle<presentation>{#1}\begin{subsection}{#1}}{\end{subsection}\end{frame}}
 
-\begin{document}
-
-
-\setbeamertemplate{background canvas}[vertical shading][top=rouge1,middle=rouge1,bottom=rouge1]
-\setbeamertemplate{footline}{\hspace{5em} \textcolor{white} {\null \hfill}\hspace{2em}\null \vspace*{3pt}}
-
-\begin{frame}
-
-\begin{textblock*}{40mm}[0,0](10mm,0mm)
- \includegraphics[width=6cm]{INRIA_CHERCHEURS_UK_RVB}
-  \end{textblock*}
-
-\begin{textblock*}{12cm}(13mm,50mm)
-{\textcolor{white} {
-{\huge \thetitle}\\[2mm]
-{\theauthor}}}
-\end{textblock*}
-
-
-   \begin{textblock*}{40mm}[0,0](10mm,76mm)
-  \begin{picture}(5,80)
-\put(0,23){\includegraphics[width=4cm,height=1.5cm]{logobasrougeV1}}
-\put(20,50){\tiny \textcolor{rouge2}{${}^{\dagger}$University of Pennsylvania}}
-\put(20,40){\tiny \textcolor{rouge2}{${}^{*}$$πr^2$ - Inria \& PPS}}
-\end{picture}
-\end{textblock*}
-
-
-\begin{textblock*}{7cm}(55mm,76mm)
-{\textcolor{white}{{\theevent}}}
-\end{textblock*}
-
-\vspace*{-4pt}
-\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mode<presentation>
 
 \setbeamertemplate{background canvas}[vertical shading][top=rouge1,bottom=rouge1,middle=rouge1]
 \setbeamercolor{toto}{fg=blanc,bg=rouge1}
@@ -181,37 +148,103 @@ San Diego, USA}
 \setbeamertemplate{subsubsection in toc shaded}
 {\begin{colormixin}{20!white}{\usebeamertemplate{subsubsection in toc}}\end{colormixin}\unskip}
 
+\setbeamertemplate{background canvas}[vertical shading][top=rouge1,middle=rouge1,bottom=rouge1]
+\setbeamertemplate{footline}{\hspace{5em} \textcolor{white} {\null \hfill}\hspace{2em}\null \vspace*{3pt}}
+
+\mode<all>
+
+\begin{document}
+
+
+
+
+\mode
+<presentation>
+{\begin{frame}
+
+\begin{textblock*}{40mm}[0,0](10mm,0mm)
+ \includegraphics[width=6cm]{INRIA_CHERCHEURS_UK_RVB}
+  \end{textblock*}
+
+\begin{textblock*}{12cm}(13mm,50mm)
+{\textcolor{white} {
+{\huge \thetitle}\\[2mm]
+{\theauthor}}}
+\end{textblock*}
+
+
+   \begin{textblock*}{40mm}[0,0](10mm,76mm)
+  \begin{picture}(5,80)
+\put(0,23){\includegraphics[width=4cm,height=1.5cm]{logobasrougeV1}}
+\put(20,50){\tiny \textcolor{rouge2}{${}^{\dagger}$University of Pennsylvania}}
+\put(20,40){\tiny \textcolor{rouge2}{${}^{*}$$πr^2$ - Inria \& PPS}}
+\end{picture}
+\end{textblock*}
+
+
+\begin{textblock*}{7cm}(55mm,76mm)
+{\textcolor{white}{{\theevent}}}
+\end{textblock*}
+
+\vspace*{-4pt}
+\end{frame}
+
+
+\setbeamertemplate{footline}
+{
+\begin{beamercolorbox}[wd=1\paperwidth]{toto}
+%\raisebox{1ex}{\includegraphics[width=25mm]{logobastrans}}
+  \hspace{4em}
+  \raisebox{2.5ex}
+  {\thetitle{}  -- \theauthorabbr{}}\hfill 
+  \raisebox{2.5ex}
+  {\insertframenumber \hspace{2mm} \null }
+\end{beamercolorbox}}
+
+\setbeamertemplate{background canvas}[vertical shading][top=white,middle=white,bottom=white]
+
+}
+
 \frame<beamer>{\frametitle{\Coq 8.5}
 \tableofcontents[sectionstyle=show/show,hideallsubsections]}
 
 \section{Up and coming}
   
 \begin{subsecframe}{Incremental development -- \name{E. Tassi}}
+  \begin{center}
+    Asynchronous and parallel processing of definitions, acrosss files. 
+    Huge gain in user productivity.
+  \end{center}
+
+  \mode<article>
   \begin{itemize}
   \item \texttt{git} model
   \item Granularity: opaque lemmas
   \item \texttt{.vi} interfaces: cross-file compilation
   \item CoqIDE only (Emacs interface hard to implement)
   \end{itemize}
+  \mode<all>
 
   \begin{itemize}
-  \item[-/++] \emph{Not optional, backwards-compatible}
-  \item[+++] \emph{Faster interaction and compilation}
+  \item[--/++] \emph{Not optional, backwards-compatible}
+  \item[+++] \emph{Faster interaction and parallel compilation}
   \end{itemize}
 \end{subsecframe}
 
 \begin{subsecframe}{New proof engine -- \name{A. Spiwack}}
-  % * new internal proof engine (perfs)
-  % - eauto backtrack with ; true proof search
-  % "all:", tactical "+", "once", a native "refine"
-
+  \begin{center}
+    Clear proof-search semantics and back to dependent subgoals.
+  \end{center}
+  
+  \mode<article>
   \begin{itemize}
   \item Existential variables + \texttt{LogicT}
   \item Proof-search semantics (\texttt{;}, \texttt{+}, $\ldots$)
   \item Cleaner code: abstract monadic interface
   \item Native \texttt{refine}, dependent goals, goal manipulation
   \end{itemize}
-  
+  \mode<all>
+
   \begin{itemize}
   \item[--/++] \emph{Not optional, backwards-compatibility layer}
   \item[--] \emph{0-15\% time overhead (still investigating, \textsc{OCaml} issue likely)}
@@ -220,6 +253,11 @@ San Diego, USA}
 
 \begin{subsecframe}{Universe polymorphism -- \name{M. Sozeau}}
 % Def interactive
+  \begin{center}
+    Truly polymorphic definitions and inductives, cleaner kernel. 
+  \end{center}
+  
+  \mode<article>
   \begin{itemize}
   \item \emph{Checked} universes.
   \item Global definitions (and inductives) or local with prenex, ``bounded''
@@ -228,10 +266,10 @@ San Diego, USA}
     generalization.
   \item Checks \texttt{HoTT/Coq}, B. Barras and T. Cowhand's semi-simplicial
     model and another (1-)groupoid model.
-    \pause
   \item Better error messaging, unification sensitive to universes.
   \item Generalized rewriting in \alert{\texttt{Type}}
   \end{itemize}
+  \mode<all>
 
   \begin{itemize}
   \item[=/++] \emph{Optional except for checked
@@ -240,12 +278,19 @@ San Diego, USA}
   \end{itemize}
 \end{subsecframe}
 
-\begin{subsecframe}{Native compilation -- \name{M.~Dénès \& B.~Grégoire}}
-\begin{itemize}
-\item Useful for large reflection proofs
-\item \Coq $"->"^{\texttt{nativecomp}}$ \textsc{ML} $"->"^{\texttt{ocamlopt}}$ \textsc{ASM}
-\item Faster than \texttt{vm\_compute}
-\end{itemize}
+\begin{subsecframe}{Native compilation -- \name{M.~Dénès \&
+      B.~Grégoire}}
+  \begin{center}
+    Down to assembly through OCaml.
+  \end{center}
+
+  \mode<article>
+  \begin{itemize}
+  \item Useful for large reflection proofs
+  \item \Coq $"->"^{\texttt{nativecomp}}$ \textsc{ML} $"->"^{\texttt{ocamlopt}}$ \textsc{ASM}
+  \item Faster than \texttt{vm\_compute}
+  \end{itemize}
+  \mode<all>
 
   \begin{itemize}
   \item[+] \emph{Optional}
@@ -254,31 +299,42 @@ San Diego, USA}
 \end{subsecframe}
 
 \begin{subsecframefragile}{Fast record projections -- \name{M. Sozeau}}
+
+  \begin{center}
+    Faster conversion and type-checking, smaller memory
+    footprint.
+  \end{center}
+  
+  \mode<article>
   \begin{itemize}
   \item Economic representation
   \item η-rule (for non-empty records only): 
     \verb|Build_rec (p1 r) .. (pn r)| is canonical
   \item Fast reduction (address of \verb|r| + offset)
-  \item No more stupid unfoldings
+  \item<article> No more stupid unfoldings
   \end{itemize}
-  
+  \mode<all>
+    
   \begin{itemize}
   \item[+/+--] \emph{Optional, backwards-compatibility layer,
       small source-level incompatibilities}.
   \item[${+}^{ω}$] \emph{Exponentially better performance}
   \end{itemize}
 
-  \TODO{MS: Graph}
-
-  % * Graphe de perfs
 \end{subsecframefragile}
 
 \begin{subsecframe}{New coqdoc -- \name{Y. Régis-Gianas}}
+
+  \begin{center}
+    A generic documentation tool based on the existing \Coq parser.
+  \end{center}
+  \mode<article>
   \begin{itemize}
   \item Based on the AST and \alert{\emph{not}} lexing anymore
   \item All semantic information available
   \item Plugable interface
   \end{itemize}
+  \mode<all>
 
   \begin{itemize}
   \item[+] \emph{Not optional but legacy \texttt{coqdoc} code included}
@@ -306,7 +362,7 @@ San Diego, USA}
 \begin{subsecframe}{\texttt{opam} -- \name{T. Braibant}}
   
   \begin{itemize}
-  \item \name{Coq, HoTT/Coq, Coq+Ssreflect}, any version, git included
+  \item \name{Coq, HoTT/Coq, Coq+Ssreflect}, any version, \texttt{git} included
   \item Some user contribs: \name{Containers, Coccinelle, Ergo, \dots}
   \item Submit a pull request! Try! Test!
   \end{itemize}
@@ -353,8 +409,8 @@ San Diego, USA}
   \begin{itemize}
   \item Extend the definitional equality with a (first-order) decidable
     theory, e.g. Presburger arithmetic, constructors
-  \item[$"->"$] A \emph{strict} equality avoiding coercions, 
-    if used, a slightly larger TCB (SN proof available).
+  \item[$"->"$] A \emph{strict} equality avoiding coercions.
+    If used, a slightly larger TCB (SN proof available).
   \item Some limitations on the use of equalities in context
   \item Current state: useful but not as well-integrated as it could
     be, still at 8.3.
@@ -364,37 +420,35 @@ San Diego, USA}
 
 \section{The distant future}
 \frame<beamer>{\frametitle{The distant future}
-\tableofcontents[sectionstyle=show/show,hideallsubsections]}
+\tableofcontents[sectionstyle=show/shaded,hideallsubsections]}
 
 \begin{subsecframe}{HoTT or OTT?}
 
-  \TODO{MS: split, give developer/user high-level views}
-  \Coq's position as a compromise.
-
   \begin{itemize}
   \item 
-    HoTT ideas, math oriented:
+    HoTT ideas, math oriented (an ideal foundation):
     \begin{itemize}
-    \item HITs (prototype by \name{B. Barras}, \name{J. Gross} will talk about them next)
-    \item \texttt{hProp}/\texttt{hSet}, resizing rules
-    \item \alert{\emph{Definitionally}}: βδ, η?, ι? 
+    \item HITs (prototype by \name{B. Barras}, \name{J. Gross} will
+      explain).
+    \item<presentation:only@0> \texttt{hProp}/\texttt{hSet}, resizing rules
+    \item<presentation:only@0> \alert{\emph{Definitionally}}: βδ, η?, ι? 
     \item \alert{\emph{Propositionally}}: proof-irrelevance, functional extensionality,
-      isomorphic types are equal (from an axiom).
+      isomorphic types are equal.
     \end{itemize}
   \item 
-    OTT/Epigram ideas, CS oriented:
+    OTT/Epigram ideas, CS oriented (another ideal foundation):
     \begin{itemize}
-    \item Generic programming on inductive types.
-    \item Clear $\Prop$/$\Set$ separation
-    \item \alert{\emph{Definitionally}}: βδηι, proof-irrelevance, functional
-      extensionality.
-    \item<presentation:only@0> \alert{\emph{Propositionally}}: defined, heterogeneous on
-      values, structural on types ($\neq$ iso). 
-      With coercion and coherence operators.
+    \item Generic programming on inductive types universe.
+    \item<presentation:only@0> Clear $\Prop$/$\Set$ separation
+    \item \alert{\emph{Definitionally}}: βδηι, proof-irrelevance.
+    \item \alert{\emph{Propositionally}}: \mode<article>{
+      Propositional and functional extensionality.  defined, heterogeneous on values,
+      structural on types ($\neq$ iso). With coercion and coherence operators.}
+      \mode<presentation>{Functional extensionality, \emph{not} iso. types are equal}
     \end{itemize}
   \end{itemize}
   
-  Ideally, we should mix the two\dots
+  Ideally, we should mix the two.
 \end{subsecframe}
 
 \begin{subsecframe}{\Coq as a programming language}
@@ -436,10 +490,13 @@ San Diego, USA}
   
 \end{subsecframe}
 
-\begin{subsecframe}{The end}
+\begin{subsecframe}{The End}
+  \begin{center}
+    \pgfuseimage{coq-biglogo}
+  \end{center}
 \end{subsecframe}
 
-\begin{subsecframe}{The bug}
+\begin{subsecframe}{The Bug}
   \begin{itemize}
   \item Due to a (very) extensional axiom, related to \emph{equality} on
     types interacting with the untyped guard condition.
