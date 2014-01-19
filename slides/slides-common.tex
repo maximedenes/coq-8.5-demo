@@ -107,7 +107,9 @@ San Diego, USA}
 
 \newenvironment{subsecframefragile}[1]{\begin{frame}[fragile,environment=subsecframefragile]\frametitle<presentation>{#1}\begin{subsection}{#1}}{\end{subsection}\end{frame}}
 
-\newcommand{\demoframe}[2]{\begin{frame}\begin{center}{\Huge #1}\\\bigskip{\Large #2}\end{center}\end{frame}}
+\newcommand{\demoframe}[2]{\only<presentation>{
+  \begin{frame}\begin{center}{\Huge #1}\\\bigskip{\Large
+        #2}\end{center}\end{frame}}}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -163,8 +165,9 @@ San Diego, USA}
 <presentation>
 {\begin{frame}
 
-\begin{textblock*}{40mm}[0,0](10mm,0mm)
- \includegraphics[width=6cm]{INRIA_CHERCHEURS_UK_RVB}
+
+\begin{textblock*}{40mm}[0,0](10mm,4mm)
+ \includegraphics[width=6cm]{INRIA_SCIENTIFIQUE_UK_BLANC_fond-transparent}
   \end{textblock*}
 
 \begin{textblock*}{12cm}(13mm,50mm)
