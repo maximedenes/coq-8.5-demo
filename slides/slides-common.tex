@@ -13,7 +13,9 @@
 
 \usepackage{coq}
 \usepackage{tikz}
-\usetikzlibrary{shapes}
+\usepackage{pgfplots}
+\usetikzlibrary{arrows,shapes,positioning,calc,scopes,
+  fit,automata}
 \usepackage{pifont}
 \usepackage{utf}
 \usepackage{natbib}
@@ -152,7 +154,10 @@ San Diego, USA}
 {\begin{colormixin}{20!white}{\usebeamertemplate{subsubsection in toc}}\end{colormixin}\unskip}
 
 \setbeamertemplate{background canvas}[vertical shading][top=rouge1,middle=rouge1,bottom=rouge1]
-\setbeamertemplate{footline}{\hspace{5em} \textcolor{white} {\null \hfill}\hspace{2em}\null \vspace*{3pt}}
+\setbeamertemplate{footline}{\hspace{5em} \textcolor{white} {\null
+    \hfill}\hspace{2em}\null \vspace*{3pt}}
+
+\input{pgfmacros}
 
 \mode<all>
 
@@ -289,7 +294,30 @@ San Diego, USA}
 
 \demoframe{Native compilation}{Maxime Dénès \& Benjamin Grégoire}
 
-\begin{subsecframe}{Native compilation -- \name{M.~Dénès \&
+\begin{subsecframefragile}{Native compilation -- \name{M.~Dénès \&
+      B.~Grégoire}}
+\begin{tikzpicture}
+\begin{axis}
+  [
+  tufte ybar,
+  symbolic x coords={FourColor,Lucas,RecNoAlloc,Cooper},
+  ylabel={Relative time (\%)},
+  height=6cm, width=10cm,
+  xtick=data,
+  legend style={fill=none}
+]
+\addplot[draw=none,fill=black] table[x index=0,y expr=\thisrowno{1}/\thisrowno{1}*100] {data/native.dat};
+\addplot[draw=none,fill=gray] table[x index=0,y expr=\thisrowno{2}/\thisrowno{1}*100] {data/native.dat};
+\addplot[draw=none,fill=gray!50!white] table[x index=0,y expr=\thisrowno{3}/\thisrowno{1}*100] {data/native.dat};
+
+  \legend{VM,Native,Extracted}
+
+\end{axis}
+\end{tikzpicture}
+\end{subsecframefragile}
+
+\begin{frame}[fragile]
+  \frametitle{Native compilation -- \name{M.~Dénès \&
       B.~Grégoire}}
   \begin{center}
     Down to assembly through \name{OCaml}. Useful for large reflection proofs.
@@ -306,7 +334,7 @@ San Diego, USA}
   \item[+] \emph{Optional}
   \item[++/--] \emph{Faster at runtime, compilation is slow}
   \end{itemize}
-\end{subsecframe}
+\end{frame}
 
 \demoframe{Fast record projections}{Matthieu Sozeau}
 

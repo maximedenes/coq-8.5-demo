@@ -1,0 +1,37 @@
+
+% Graphics
+\pgfplotsset{
+   tufte ybar/.style={
+      ybar,
+%      hide x axis,
+      axis line style={opacity=0},
+      major tick style={draw=none},
+      ymin=0,
+      bar width=0.8em,
+      ymajorgrids, tick align=inside,
+      major grid style=white,
+      axis on top,
+      axis y line*=right,
+%      after end axis/.code={
+%        \draw [very thick] ({rel axis cs:0,0}-|{axis cs:\pgfplots@data@xmin,0})
+%              ++(-0.5*\pgfkeysvalueof{/pgf/bar width},0pt)
+%              -- ({rel axis cs:0,0}-|{axis cs:\pgfplots@data@xmax,0})
+%              -- ++(0.5*\pgfkeysvalueof{/pgf/bar width},0pt);
+%      },
+%      yticklabel=\pgfmathprintnumber{\tick}\,\%,
+      ytick={20,40,...,100},
+      tickwidth=0pt,
+      legend style={draw=none},
+      legend style={
+          at={(0.5,-0.1)},
+          anchor=north,
+          legend columns=-1,
+          /tikz/every even column/.append style={column sep=0.5cm}
+      },
+      enlarge y limits={value=.1,upper},
+      enlarge x limits=true,
+      nodes near coords={
+        \pgfmathprintnumber[precision=0]{\pgfplotspointmeta}
+       }
+   }
+}
