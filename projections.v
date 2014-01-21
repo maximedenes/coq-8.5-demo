@@ -3,7 +3,8 @@ Module Legacy.
   Record foo (A : Type) := 
     { bar : A -> A }.
 
-  Definition test A (f : foo A) : bar _ f = id (bar _ f).
+  Definition test A (f : foo A) : 
+    bar _ f = id (bar _ f).
   Proof.   
     Set Printing All.
 
@@ -23,7 +24,8 @@ Module Primitive.
     { bar : A -> A }.
 
 
-  Definition test A (f : foo A) : bar f = id (bar f).
+  Definition test A (f : foo A) : 
+    bar f = id f.(bar).
   Proof.   
     Set Printing All. idtac.
 
@@ -31,7 +33,9 @@ Module Primitive.
 
     reflexivity.
   Qed.
-  
+
+  Eval compute in @bar.
+
 End Primitive.
 
 
