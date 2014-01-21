@@ -1,0 +1,133 @@
+\definecolor{dkblue}{rgb}{0,0.1,0.5}
+\definecolor{dkred}{rgb}{0.8,0.1,0.1}
+\definecolor{dkn}{rgb}{0.5,0.1,0.1}
+\definecolor{lightblue}{rgb}{0.1,0.6,0.1}
+\definecolor{dkgreen}{rgb}{0,0.4,0}
+\definecolor{dk2green}{rgb}{0.4,0,0}
+\definecolor{dkviolet}{rgb}{0.6,0,0.8}
+\definecolor{dkname}{rgb}{0,0,1}
+\definecolor{dkpink}{rgb}{0.7,0,0.9}
+\def\lstlanguagefiles{defManSSR.tex}
+\lstset{breaklines=true,breakatwhitespace=true}
+\lstset{mathescape=true}
+
+\newcommand{\hl}[1]{{\color{red} #1}}
+
+% Maximum number of columns in bmatrix (10 default)
+\setcounter{MaxMatrixCols}{20}
+
+\lstdefinestyle{nobreak}{breaklines=false}
+
+\newcommand{\LC}{\lstinline[language=SSR,breaklines=false]}
+\newcommand{\LO}{\lstinline[breaklines=false]}
+
+% Names
+\newcommand{\formath}{\textsc{ForMath}}
+\newcommand{\coq}{\textsc{Coq}}
+\newcommand{\ssr}{\textsc{SSReflect}}
+\newcommand{\ml}{\textsc{ML}}
+\newcommand{\ocaml}{\textsc{OCaml}}
+\newcommand{\coqeal}{\textsc{CoqEAL}}
+
+% Complexity
+\newcommand\bigO[1]{\mathcal{O}(#1)}
+
+% Type theory
+\newcommand{\lc}{\texorpdfstring{$\lambda$}{lambda}-calcul}
+\newcommand{\cic}{C.C.I.}
+\newcommand{\nbe}{N.p.E.}
+
+% Algebra
+\newcommand{\ring}{\mathcal{R}}
+\newcommand{\field}{\mathcal{K}}
+\newcommand\rank[1]{\mathrm{rang}(#1)}
+\renewcommand\gcd[2]{\mathrm{pgcd}(#1,#2)}
+
+% Hacking
+\renewcommand{\sec}[1]{section~\ref{#1}}
+\newcommand{\fig}[1]{figure~\ref{#1}}
+
+\AtBeginSection[]
+  {
+     \begin{frame}<beamer>
+     \frametitle{Outline}
+     \tableofcontents[currentsection]
+     \end{frame}
+  }
+
+% Tikz
+% TODO: had to disable for beamer
+%\pgfdeclarelayer{myback}
+%\pgfsetlayers{myback,background,main}
+
+%\tikzset{mycolor/.style = {line width=1bp,color=#1}}%
+%\tikzset{myfillcolor/.style = {draw,fill=#1}}%
+
+%\newcommand{\highlight}[3]{%
+%\draw[mycolor=#1] (#2.north west)rectangle (#3.south east);
+%}
+
+%\newcommand{\fhighlight}[3]{%
+%\draw[myfillcolor=#1] (#2.north west)rectangle (#3.south east);
+%}
+
+
+\newcommand\sem[1]{[\![#1]\!]}
+\newcommand{\redr}{\longrightarrow}
+
+\newcommand\sep{\;|\;}
+\newcommand\etal{\textit{et al.}}
+\newcommand\modsem[1]{{[\!\![#1]\!\!]}_{\textrm{mod}}}
+\newcommand\modtsem[1]{{[\!\![#1]\!\!]}_{\textrm{sig}}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\newcommand{\Subst}[2]{\{{#1}\leftarrow{#2}\}}
+\newcommand{\eqdef}{\hat=}
+
+% CIC terms
+\newcommand{\CICmatch}[2]{\mathbf{match}_{\langle P\rangle}\: {#1} \textbf{ with }
+{(C_i(\vec{x_i})\rightarrow #2)}_{i\in I}}
+\newcommand{\CICfix}[1]{{\mathbf{fix}_{m}\;(f : T := #1)}}
+\newcommand{\CICcofix}[1]{{\mathbf{cofix}\;(f := #1)}}
+
+% general framework definitions.
+\newcommand{\tlam}[2]{\lambda #1.\: #2}
+\newcommand{\tmquote}[1]{\ulcorner #1 \urcorner}
+\newcommand{\placeholder}{\_}
+\newcommand{\equivbeta}{=_\beta}
+\newcommand{\Term}{\textsf{Term}}
+\newcommand{\Termnf}{\textsf{Term}_\textsf{NF}}
+\newcommand{\CVar}[1]{\tilde{#1}}
+\newcommand{\CLam}[1]{\underline{\lambda}\;#1}
+\newcommand{\CApp}[2]{#1 \,\underline{\cdot}\, #2}
+\newcommand{\SVar}[1]{#1}
+\newcommand{\SLam}[2]{\tlam{#1}{#2}}
+\newcommand{\SApp}[2]{#1 \; #2}
+\newcommand{\funapp}[2]{#1 \,\overline{\cdot}\, #2}
+\newcommand{\funappn}[2]{#1 \,\cdot\, #2}
+\newcommand{\funeval}[1]{\textsf{eval}\;#1}
+\newcommand{\funevalr}[1]{\textsf{eval}_\textsf{R}\;#1}
+\newcommand{\funreify}[2]{{\downarrow^{#1}} #2}
+
+%%%% Symbolic calculus
+\newcommand{\sred}{\rightarrow}
+\newcommand{\sreds}{\sred^*}
+\newcommand{\Val}{\mathcal{V}}
+\newcommand{\RB}{\mathcal{R}}
+\newcommand{\Norm}{\mathcal{N}}
+
+%%%% Compilation to ocaml 
+\newcommand{\Comp}[1]{\tmquote{#1}}
+\newcommand{\Ocamlfont}[1]{\texttt{#1}}
+\newcommand{\App}{\Ocamlfont{app}}
+\newcommand{\kov}{\Ocamlfont{head}}
+\newcommand{\mkAccu}{\Ocamlfont{mkAccu}}
+\newcommand{\mkLam}{\Ocamlfont{mkLam}}
+\newcommand{\Var}{\Ocamlfont{Var}}
+\newcommand{\Lam}{\Ocamlfont{Lam}}
+\newcommand{\Accu}{\Ocamlfont{Accu}}
+\newcommand{\ofun}{\Ocamlfont{fun}}
+\newcommand{\ACCU}{\texttt{ACCU}}
+\newcommand{\mkProd}{\Ocamlfont{Prod}}
+\newcommand{\mkSort}{\Ocamlfont{Sort}}
+\newcommand{\mkConstruct}{\Ocamlfont{mkConstruct}}
