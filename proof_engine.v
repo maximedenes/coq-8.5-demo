@@ -5,35 +5,10 @@ Reserved Notation "a ≡ b" (at level 70).
 Goal exists n:nat, n=0.
 Proof.
   exists 0.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   Undo.
   eexists.
   reflexivity.
 Qed.
-
-
-
-
-
-
-
-
 
 Record AbGr := {
   El :> Type ;
@@ -60,28 +35,15 @@ Goal forall (P:AbGr->Prop), exists G, P G.
 Proof.
   intros *.
   eexists.
-
-
-
-
-
-
-
-
-
-
-
-
-
   Undo.
   refine (ex_intro _ _ _).
-  - refine {|
-      El := Z.t;
-      equ n p := Z.eqb n p = true;
-      zero := 0%Z;
-      plus := Z.add;
-      minus := Z.opp
-    |}.
+  refine {|
+    El := Z.t;
+    equ n p := Z.eqb n p = true;
+    zero := 0%Z;
+    plus := Z.add;
+    minus := Z.opp
+  |}.
 Abort.
 
 
@@ -97,43 +59,6 @@ Proof.
 Abort.
 
 
-
-
-
-
-Goal exists n:nat, n=0.
-Proof.
-  refine (ex_intro _ _ _); shelve_unifiable.
-Abort.
-
-
-
-
-
-
-
-Goal (exists n:nat, n=0) /\ True.
-Proof.
-  split; [ refine (ex_intro _ _ _) | ].
-  2: reflexivity.
-  trivial.
-Qed.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Goal True /\ True.
 Proof.
   split.
@@ -141,113 +66,25 @@ Proof.
 Qed.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Goal forall (A B C D:Prop), (A->C) -> (B->C) -> (D->C) -> B -> C.
 Proof.
   intros * h0 h1 h2 h3.
-  Fail (apply h0||apply h1);apply h3.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  Fail (apply h0 || apply h1);apply h3.
 
 
   (apply h0 + apply h1);apply h3.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   Undo.
+
   Fail once (apply h0 + apply h1);apply h3.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   Fail ((apply h0+apply h2) || apply h1); apply h3.
 
   ((apply h0+apply h1) || apply h2); apply h3.
 Qed.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 Ltac give_up_quick := trivial || admit.
@@ -258,41 +95,4 @@ Proof.
   split.
   - give_up_quick.
   - give_up_quick.
-Qed.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Goal True.
-Proof.
-  Fail exactly_once (trivial+trivial).
-  exactly_once (trivial+fail).
 Qed.
