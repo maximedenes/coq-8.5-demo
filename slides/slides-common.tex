@@ -218,7 +218,7 @@ San Diego, USA}
 
 \begin{subsecframe}{Incremental development -- \name{E. Tassi}}
   \begin{center}
-    Asynchronous and parallel processing of definitions, acrosss files. 
+    Asynchronous and parallel processing of definitions.    
     Huge gain in user productivity.
   \end{center}
 
@@ -241,7 +241,7 @@ San Diego, USA}
 
 \begin{subsecframe}{New proof engine -- \name{A. Spiwack}}
   \begin{center}
-    Clear proof-search semantics and back to dependent subgoals.
+    Clear proof-search semantics and dependent subgoals.
   \end{center}
   
   \mode<article>
@@ -282,8 +282,7 @@ San Diego, USA}
   \mode<all>
 
   \begin{itemize}
-  \item[=/++] \emph{Optional except for checked
-      universes, impacts the ML hacker only}. Backwards-compatibility layer.
+  \item[=/++] \emph{Kernel change - impacts the ML hacker only}. Backwards-compatibility layer.
   \item[=+/+] \emph{Comparable or better performance, more expressive}
   \end{itemize}
 \end{subsecframe}
@@ -293,14 +292,13 @@ San Diego, USA}
 \begin{subsecframe}{Native compilation -- \name{M.~Dénès \&
       B.~Grégoire}}
   \begin{center}
-    Down to assembly through OCaml.
+    Down to assembly through \name{OCaml}. Useful for large reflection proofs.
   \end{center}
 
   \mode<article>
   \begin{itemize}
-  \item Useful for large reflection proofs
   \item \Coq $"->"^{\texttt{nativecomp}}$ \textsc{ML} $"->"^{\texttt{ocamlopt}}$ \textsc{ASM}
-  \item Faster than \texttt{vm\_compute}
+  \item Faster than \texttt{vm\_compute}, to be merged.
   \end{itemize}
   \mode<all>
 
@@ -338,17 +336,42 @@ San Diego, USA}
 \end{subsecframefragile}
 
 \demoframe{New coqdoc}{Yann Régis-Gianas}
+\begin{subsecframefragile}{New coqdoc -- \name{Y. Régis-Gianas}}
+\frametitle{A new architecture}
+\begin{center}
+\includegraphics[width=10cm]{coqdoc.png}
+\end{center}
+\end{subsecframefragile}
 
-\begin{subsecframe}{New coqdoc -- \name{Y. Régis-Gianas}}
+\begin{frame}[fragile]
+\frametitle{New coqdoc -- \name{Y. Régis-Gianas}}
 
   \begin{center}
     A generic documentation tool based on the existing \Coq parser.
   \end{center}
   \mode<article>
   \begin{itemize}
-  \item Based on the AST and \alert{\emph{not}} lexing anymore
-  \item All semantic information available
-  \item Plugable interface
+  \item The current implementation \texttt{coqdoc} has several flaws:
+    \begin{itemize}
+    \item It reimplements an approximate parser for .v files.
+    \item It generates documents that are hard to customize.
+    \item It contains many bugs.
+    \end{itemize}
+  \item Following \texttt{coqide}'s philosophy, this tool should
+    only focus on the document generation and delegates the syntactic
+    and semantic analysis to \texttt{coqtop}.
+    
+  \item By the way, similar remarks are valid for \texttt{coqtex} too.
+  \end{itemize}
+
+  Planning:
+  \begin{itemize}
+  \item A prototype has been implemented by Fran\c{c}ois Ripault during an
+    internship last year. A ready-for-integration implementation will
+    be pushed in the trunk by the end of february.
+  \item In the next release, we will ship a \verb!coqdoc! embedding
+    the old and the new implementation with a flag to choose between
+    them.
   \end{itemize}
   \mode<all>
 
@@ -359,7 +382,7 @@ San Diego, USA}
   
   % \vfill
   % \begin{center}\alert{{\Huge Demo}}\end{center}
-\end{subsecframe}
+\end{frame}
 
 \begin{subsecframefragile}{Misc -- \Coq dev team \& contributors}
   \begin{itemize}
@@ -389,12 +412,11 @@ San Diego, USA}
 
     \url{https://github.com/braibant/opam-coq-repo}
   \end{center}
-  \TODO{TB: USB key?}
 \end{subsecframe}
 
 \begin{subsecframe}{Tentative planning}
   \begin{itemize}
-  \item Late February 2014: 8.5-α release and 8.4pl6 (or 8.4-2) (\TODO{MS:n bugs closed})
+  \item Late February 2014: 8.5-α release and 8.4pl4 (or 8.4-2)
   \item April 2014: 8.5-β release and opening of new branch
     (only bug fixes in trunk between α and β)
   \item August 2014: final release
@@ -404,7 +426,7 @@ San Diego, USA}
 
 \section{The close future}
 \frame<beamer>{\frametitle{The close future}
-\tableofcontents[sectionstyle=show/show,hideallsubsections]}
+\tableofcontents[sectionstyle=show/shaded,hideallsubsections]}
 
 \begin{subsecframe}{Performance}
 
@@ -414,7 +436,8 @@ San Diego, USA}
     definitions, custom reductions\dots
   \item Machine integers and persistent arrays (\name{M. Dénès, B.~Grégoire})
   \item Caching of typechecked terms (\name{E. Tassi, M. Sozeau}):
-    typecheck once, reuse as many times at 0 cost!
+    typecheck once, reuse as many times at 0 cost! (\TODO{slides enrico
+      GT conversion congruence}).
   \item Maximal sharing / generalized hash-consing of terms (\name{T. Braibant, M. Sozeau,
       P. M. Pédrot, $\ldots$})
   \end{itemize}
@@ -425,13 +448,20 @@ San Diego, USA}
   \begin{itemize}
   \item Extend the definitional equality with a (first-order) decidable
     theory, e.g. Presburger arithmetic, constructors
-  \item[$"->"$] A \emph{strict} equality avoiding coercions.
+  \item<presentation:only@0>[$"->"$] A \emph{strict} equality avoiding coercions.
     If used, a slightly larger TCB (SN proof available).
   \item Some limitations on the use of equalities in context
   \item Current state: useful but not as well-integrated as it could
     be, still at 8.3.
   \item To be integrated as an optional feature
   \end{itemize}
+
+  \begin{itemize}
+  \item[+] \emph{Optional}
+  \item[+/--] \emph{Smoother programming with dependent types, slows
+      down unification/conversion}
+  \end{itemize}
+
 \end{subsecframe}  
 
 \section{The distant future}
@@ -460,7 +490,7 @@ San Diego, USA}
     \item \alert{\emph{Propositionally}}: \mode<article>{
       Propositional and functional extensionality.  defined, heterogeneous on values,
       structural on types ($\neq$ iso). With coercion and coherence operators.}
-      \mode<presentation>{Functional extensionality, \emph{not} iso. types are equal}
+      \mode<presentation>{Functional extensionality, iso. types are \emph{not} equal}
     \end{itemize}
   \end{itemize}
   
@@ -471,10 +501,11 @@ San Diego, USA}
 
   Usability, efficiency woes:
   \begin{itemize}
-  \item I/O, FFI
+  \item I/O, FFI (with tainting)
   \item Proof-irrelevance in conversion: gives ``true'' dependent
     pattern-matching, true subset/refinement types.
-  \item Type-based termination (sized-types, \name{J. L. Sacchini})
+  \item Type-based termination (sized-types, \name{J. L. Sacchini},
+    \alert{postdoc position available} at CMU in Qatar!)
   \end{itemize}
 \end{subsecframe}
 
