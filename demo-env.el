@@ -13,9 +13,10 @@
  '(font-lock-type-face ((t (:foreground "red" :underline nil :bold nil))))
  '(font-lock-variable-name-face ((t (:foreground "black" :bold nil))))
 ; '(font-lock-variable-name-face ((t (:foreground "purple" :bold nil))))
- '(font-lock-warning-face ((t (:bold t :foreground "IndianRed"))))
+ '(font-lock-warning-face ((t (:bold t))))
  '(proof-locked-face ((t (:background "lightblue"))))
  '(proof-queue-face ((((type mac) (class color) (background dark)) (:background "lightblue"))))
+ '(proof-error-face ((t (:foreground "red" :underline nil :bold nil))))
  '(proof-tactics-name-face ((((type mac) (class color) (background dark)) nil))))
 
 

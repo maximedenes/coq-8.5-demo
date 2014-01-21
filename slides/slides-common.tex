@@ -107,9 +107,11 @@ San Diego, USA}
 
 \newenvironment{subsecframefragile}[1]{\begin{frame}[fragile,environment=subsecframefragile]\frametitle<presentation>{#1}\begin{subsection}{#1}}{\end{subsection}\end{frame}}
 
-\newcommand{\demoframe}[2]{\only<presentation>{
-  \begin{frame}\begin{center}{\Huge #1}\\\bigskip{\Large
-        #2}\end{center}\end{frame}}}
+\usepackage{xparse}
+
+\DeclareDocumentCommand\demoframe{m m g g}{\only<presentation>{%
+  \begin{frame}\begin{center}{\Huge #1}\\\bigskip{\Large #2}%
+      \IfNoValueF{#3}{\\\vspace{2em}\includegraphics[height=10em]{#3}\IfNoValueF{#4}{\hspace{2em}\includegraphics[height=10em]{#4}}}\end{center}\end{frame}}}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -214,7 +216,7 @@ San Diego, USA}
 
 \section{Up and coming}
 
-\demoframe{Incremental development}{Enrico Tassi}
+\demoframe{Incremental development}{Enrico Tassi}{tassi.jpg}
 
 \begin{subsecframe}{Incremental development -- \name{E. Tassi}}
   \begin{center}
@@ -237,7 +239,7 @@ San Diego, USA}
   \end{itemize}
 \end{subsecframe}
 
-\demoframe{New proof engine}{Arnaud Spiwack}
+\demoframe{New proof engine}{Arnaud Spiwack}{spiwack.jpg}
 
 \begin{subsecframe}{New proof engine -- \name{A. Spiwack}}
   \begin{center}
@@ -259,7 +261,7 @@ San Diego, USA}
   \end{itemize}
 \end{subsecframe}
 
-\demoframe{Universe polymorphism}{Matthieu Sozeau}
+\demoframe{Universe polymorphism}{Matthieu Sozeau}{sozeau}
 
 \begin{subsecframe}{Universe polymorphism -- \name{M. Sozeau}}
 % Def interactive
@@ -287,7 +289,7 @@ San Diego, USA}
   \end{itemize}
 \end{subsecframe}
 
-\demoframe{Native compilation}{Maxime Dénès \& Benjamin Grégoire}
+\demoframe{Native compilation}{Maxime Dénès \& Benjamin Grégoire}{denes}{gregoire}
 
 \begin{subsecframe}{Native compilation -- \name{M.~Dénès \&
       B.~Grégoire}}
@@ -335,7 +337,7 @@ San Diego, USA}
 
 \end{subsecframefragile}
 
-\demoframe{New coqdoc}{Yann Régis-Gianas}
+\demoframe{New coqdoc}{Yann Régis-Gianas}{regis-gianas}
 \begin{subsecframefragile}{New coqdoc -- \name{Y. Régis-Gianas}}
 \frametitle{A new architecture}
 \begin{center}
@@ -395,7 +397,13 @@ San Diego, USA}
   \item More expressive guard condition (\name{P. Boutillier, H. Herbelin})
   \item Rewriting with strategies (\name{M. Sozeau})
   \end{itemize}
-
+  
+  \begin{center}
+    \includegraphics[height=5em]{pedrot}
+    \hspace{2em}\includegraphics[height=5em]{letouzey}
+    \hspace{2em}\includegraphics[height=5em]{herbelin-ias}
+    \hspace{2em}\includegraphics[height=5em]{boutillier.png}
+  \end{center}
 \end{subsecframefragile}
 
 \begin{subsecframe}{\texttt{opam} -- \name{T. Braibant}}

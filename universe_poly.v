@@ -252,6 +252,7 @@ Print _Type.
 Definition subset {A : Set} (P : A → Prop) : Set := 
   sigma A P.
 
+Polymorphic
 Definition subsetT {A : Type} (P : A → Prop) := 
   sigma A P.
 
