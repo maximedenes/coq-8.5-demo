@@ -244,9 +244,6 @@ Polymorphic Definition contr (A : Type) :=
 Polymorphic Definition _Type := 
   { A & contr A }.
 
-Polymorphic Definition _TypeBUGGED := 
-  { A : Type & contr A }.
-
 Print _Type.
 
 

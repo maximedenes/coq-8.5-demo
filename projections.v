@@ -36,6 +36,10 @@ Module Primitive.
 
   Eval compute in @bar.
 
+  Lemma eta A (f : foo A) : 
+    f = {| bar := f.(bar) |}.
+  Proof. reflexivity. Defined. 
+
 End Primitive.
 
 
